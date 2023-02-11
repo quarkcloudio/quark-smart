@@ -5,6 +5,7 @@ import (
 	"github.com/quarkcms/quark-go/pkg/app/install"
 	"github.com/quarkcms/quark-go/pkg/app/middleware"
 	"github.com/quarkcms/quark-go/pkg/builder"
+	"github.com/quarkcms/quark-simple/database"
 	adminproviders "github.com/quarkcms/quark-simple/internal/admin"
 	"github.com/quarkcms/quark-simple/internal/handlers"
 	"gorm.io/driver/mysql"
@@ -31,11 +32,14 @@ func main() {
 	// 实例化对象
 	b := builder.New(config)
 
-	// 静态文件
+	// 静态文件目录
 	b.Static("/", "./website")
 
-	// 自动构建数据库、拉取静态文件
+	// 构建quarkgo基础数据库、拉取静态文件
 	b.Use(install.Handle)
+
+	// 构建本项目数据库
+	b.Use(database.Handle)
 
 	// 后台中间件
 	b.Use(middleware.Handle)
