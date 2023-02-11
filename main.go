@@ -5,6 +5,8 @@ import (
 	"github.com/quarkcms/quark-go/pkg/app/install"
 	"github.com/quarkcms/quark-go/pkg/app/middleware"
 	"github.com/quarkcms/quark-go/pkg/builder"
+	adminproviders "github.com/quarkcms/quark-simple/internal/admin"
+	"github.com/quarkcms/quark-simple/internal/handlers"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -15,11 +17,14 @@ func main() {
 
 	// 配置资源
 	config := &builder.Config{
-		AppKey:    "123456",
-		Providers: admin.Providers,
+		AppKey: "123456",
 		DBConfig: &builder.DBConfig{
 			Dialector: mysql.Open(dsn),
 			Opts:      &gorm.Config{},
+		},
+		Providers: append(admin.Providers, adminproviders.Providers...),
+		AdminLayout: &builder.AdminLayout{
+			Title: "QuarkSimple",
 		},
 	}
 
@@ -35,12 +40,8 @@ func main() {
 	// 后台中间件
 	b.Use(middleware.Handle)
 
-	// 响应Get请求
-	b.GET("/", func(ctx *builder.Context) error {
-		ctx.Write([]byte("hello world!"))
-
-		return nil
-	})
+	// 路由
+	b.GET("/", (&handlers.Home{}).Index)
 
 	// 启动服务
 	b.Run(":3000")
