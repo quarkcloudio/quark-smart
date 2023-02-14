@@ -1,31 +1,46 @@
 package main
 
 import (
+	"github.com/quarkcms/quark-easy/config"
 	"github.com/quarkcms/quark-easy/database"
 	"github.com/quarkcms/quark-easy/internal/admin"
-	"github.com/quarkcms/quark-easy/internal/handler"
+	"github.com/quarkcms/quark-easy/internal/middleware"
+	"github.com/quarkcms/quark-easy/internal/router"
 	appproviders "github.com/quarkcms/quark-go/pkg/app/handler/admin"
-	"github.com/quarkcms/quark-go/pkg/app/install"
-	"github.com/quarkcms/quark-go/pkg/app/middleware"
+	appinstall "github.com/quarkcms/quark-go/pkg/app/install"
+	appmiddleware "github.com/quarkcms/quark-go/pkg/app/middleware"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 func main() {
+
+	// 配置信息
+	var (
+		appName    = config.App["name"].(string)
+		appKey     = config.App["key"].(string)
+		dbUser     = config.Mysql["username"].(string)
+		dbPassword = config.Mysql["password"].(string)
+		dbHost     = config.Mysql["host"].(string)
+		dbPort     = config.Mysql["port"].(string)
+		dbName     = config.Mysql["database"].(string)
+		dbCharset  = config.Mysql["charset"].(string)
+	)
+
 	// 数据库配置信息
-	dsn := "root:Bc5HQFJc4bLjZCcC@tcp(127.0.0.1:3306)/quarkgo?charset=utf8&parseTime=True&loc=Local"
+	dsn := dbUser + ":" + dbPassword + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName + "?charset=" + dbCharset + "&parseTime=True&loc=Local"
 
 	// 配置资源
 	config := &builder.Config{
-		AppKey: "123456",
+		AppKey: appKey,
 		DBConfig: &builder.DBConfig{
 			Dialector: mysql.Open(dsn),
 			Opts:      &gorm.Config{},
 		},
 		Providers: append(appproviders.Providers, admin.Providers...),
 		AdminLayout: &builder.AdminLayout{
-			Title: "QuarkEasy",
+			Title: appName,
 		},
 	}
 
@@ -36,16 +51,19 @@ func main() {
 	b.Static("/", "./website")
 
 	// 构建quarkgo基础数据库、拉取静态文件
-	b.Use(install.Handle)
+	b.Use(appinstall.Handle)
 
 	// 构建本项目数据库
 	b.Use(database.Handle)
 
 	// 后台中间件
+	b.Use(appmiddleware.Handle)
+
+	// 中间件
 	b.Use(middleware.Handle)
 
-	// 路由
-	b.GET("/", (&handler.Home{}).Index)
+	// 注册路由
+	router.Register(b)
 
 	// 启动服务
 	b.Run(":3000")
