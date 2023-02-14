@@ -5,6 +5,7 @@ import (
 
 	"github.com/dchest/captcha"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/quarkcms/quark-easy/config"
 	"github.com/quarkcms/quark-go/pkg/app/model"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminlogin"
@@ -32,10 +33,10 @@ func (p *Index) Init() interface{} {
 	p.Logo = false
 
 	// 登录页面标题
-	p.Title = "QuarkEasy"
+	p.Title = config.Admin.Title
 
 	// 登录页面子标题
-	p.SubTitle = "信息丰富的世界里，唯一稀缺的就是人类的注意力"
+	p.SubTitle = config.Admin.SubTitle
 
 	// 登录后跳转地址
 	p.Redirect = "/index?api=/api/admin/dashboard/index/index"

@@ -1,7 +1,7 @@
 package dashboards
 
 import (
-	"github.com/quarkcms/quark-go/pkg/app/handler/admin/metrics"
+	"github.com/quarkcms/quark-easy/internal/admin/metrics"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/admindashboard"
 )

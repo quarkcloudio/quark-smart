@@ -4,22 +4,33 @@ import (
 	"github.com/quarkcms/quark-easy/pkg/env"
 )
 
-var Mysql = map[string]interface{}{
+type MysqlConfig struct {
+	Host     string // 地址
+	Port     string // 端口
+	Database string // 数据库
+	Username string // 用户名
+	Password string // 密码
+	Charset  string // 编码
+}
+
+// Mysql配置信息
+var Mysql = &MysqlConfig{
+
 	// 地址
-	"host": env.Get("DB_HOST", "127.0.0.1"),
+	Host: env.Get("DB_HOST", "127.0.0.1").(string),
 
 	// 端口
-	"port": env.Get("DB_PORT", "3306"),
+	Port: env.Get("DB_PORT", "3306").(string),
 
 	// 数据库
-	"database": env.Get("DB_DATABASE", "quarkgo"),
+	Database: env.Get("DB_DATABASE", "quarkgo").(string),
 
 	// 用户名
-	"username": env.Get("DB_USERNAME", "root"),
+	Username: env.Get("DB_USERNAME", "root").(string),
 
 	// 密码
-	"password": env.Get("DB_PASSWORD", "root"),
+	Password: env.Get("DB_PASSWORD", "root").(string),
 
 	// 编码
-	"charset": "utf8",
+	Charset: "utf8",
 }

@@ -2,82 +2,79 @@ package config
 
 import "time"
 
-const APP_LOGO = false
-const ICONFONT_URL = "//at.alicdn.com/t/font_1615691_3pgkh5uyob.js"
+type AdminConfig struct {
+	Title        string                   // 应用标题
+	Logo         interface{}              // Logo
+	SubTitle     string                   // 登录页子标题
+	IconfontUrl  string                   // 使用 IconFont 的图标配置
+	Layout       string                   // layout 的菜单模式,side：右侧导航，top：顶部导航，mix：混合模式
+	SplitMenus   bool                     // layout 的菜单模式为mix时，是否自动分割菜单
+	ContentWidth string                   // layout 的内容模式,Fluid：定宽 1200px，Fixed：自适应
+	PrimaryColor string                   // 主题色,"#1890ff"
+	FixedHeader  bool                     // 是否固定 header 到顶部
+	FixSiderbar  bool                     // 是否固定导航
+	Locale       string                   // 当前 layout 的语言设置，'zh-CN' | 'zh-TW' | 'en-US'
+	SiderWidth   int                      // 侧边菜单宽度
+	Copyright    string                   // 网站版权 time.Now().Format("2006") + " QuarkGo"
+	Links        []map[string]interface{} // 友情链接
+}
 
-var Admin = map[string]interface{}{
-	// QuarkAdmin App Name
-	"name": App["name"],
+// 后台Layout配置
+var Admin = &AdminConfig{
 
-	// QuarkAdmin Version
-	"version": "0.0.1",
+	// 应用标题
+	Title: App.Name,
 
-	// QuarkAdmin logo
-	"logo": APP_LOGO,
+	// Logo
+	Logo: false,
 
-	// The description of login page.
-	"description": "信息丰富的世界里，唯一稀缺的就是人类的注意力",
+	// 登录页子标题
+	SubTitle: "信息丰富的世界里，唯一稀缺的就是人类的注意力",
 
 	// 使用 IconFont 的图标配置
-	"iconfont_url": ICONFONT_URL,
+	IconfontUrl: "//at.alicdn.com/t/font_1615691_3pgkh5uyob.js",
 
-	// The layout of QuarkAdmin
-	"layout": map[string]interface{}{
+	// layout 的菜单模式,side：右侧导航，top：顶部导航，mix：混合模式
+	Layout: "mix",
 
-		// layout 的左上角 的 title
-		"title": App["name"],
+	// layout 的菜单模式为mix时，是否自动分割菜单
+	SplitMenus: false,
 
-		// layout 的左上角 的 logo
-		"logo": APP_LOGO,
+	// layout 的内容模式,Fluid：定宽 1200px，Fixed：自适应
+	ContentWidth: "Fluid",
 
-		// layout 的菜单模式,side：右侧导航，top：顶部导航，mix：混合模式
-		"layout": "side",
+	// 主题色,"#1890ff"
+	PrimaryColor: "#1890ff",
 
-		// layout 的菜单模式为mix时，是否自动分割菜单
-		"split_menus": false,
+	// 是否固定 header 到顶部
+	FixedHeader: true,
 
-		// layout 的菜单模式为mix时，顶部主题 'dark' | 'light'
-		"header_theme": "dark",
+	// 是否固定导航
+	FixSiderbar: true,
 
-		// layout 的内容模式,Fluid：定宽 1200px，Fixed：自适应
-		"content_width": "Fluid",
+	// 当前 layout 的语言设置，'zh-CN' | 'zh-TW' | 'en-US'
+	Locale: "zh-CN",
 
-		// 导航的主题，'light' | 'dark'
-		"nav_theme": "dark",
+	// 侧边菜单宽度
+	SiderWidth: 208,
 
-		// 主题色
-		"primary_color": "#1890ff",
-
-		// 是否固定 header 到顶部
-		"fixed_header": true,
-
-		// 是否固定导航
-		"fix_siderbar": true,
-
-		// 使用 IconFont 的图标配置
-		"iconfont_url": ICONFONT_URL,
-
-		// 当前 layout 的语言设置，'zh-CN' | 'zh-TW' | 'en-US'
-		"locale": "zh-CN",
-
-		// 侧边菜单宽度
-		"sider_width": 208,
-	},
-
-	// 网站版权
-	"copyright": time.Now().Format("2006") + " QuarkGo",
+	// 网站版权 time.Now().Format("2006") + " QuarkGo"
+	Copyright: time.Now().Format("2006") + " QuarkEasy",
 
 	// 友情链接
-	"links": []map[string]interface{}{
+	Links: []map[string]interface{}{
 		{
+			"key":   "1",
 			"title": "Quark",
 			"href":  "http://www.quarkcms.com/",
 		},
 		{
+			"key":   "2",
 			"title": "爱小圈",
 			"href":  "http://www.ixiaoquan.com",
 		},
 		{
+			"key":   "3",
 			"title": "Github",
 			"href":  "https://github.com/quarkcms",
 		},

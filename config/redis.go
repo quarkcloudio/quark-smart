@@ -4,17 +4,25 @@ import (
 	"github.com/quarkcms/quark-easy/pkg/env"
 )
 
-var Redis = map[string]interface{}{
+type RedisConfig struct {
+	Host     string // 地址
+	Password string // 密码
+	Port     string // 端口
+	Database int    // 数据库
+}
+
+// Redis配置信息
+var Redis = &RedisConfig{
 
 	// 地址
-	"host": env.Get("REDIS_HOST", "127.0.0.1"),
+	Host: env.Get("REDIS_HOST", "127.0.0.1").(string),
 
 	// 密码
-	"password": env.Get("REDIS_PASSWORD"),
+	Password: env.Get("REDIS_PASSWORD").(string),
 
 	// 端口
-	"port": env.Get("REDIS_PORT", "6379"),
+	Port: env.Get("REDIS_PORT", "6379").(string),
 
 	// 数据库
-	"database": 0,
+	Database: 0,
 }
