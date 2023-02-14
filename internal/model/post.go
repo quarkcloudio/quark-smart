@@ -1,9 +1,9 @@
-package models
+package model
 
 import (
 	"time"
 
-	"github.com/quarkcms/quark-go/pkg/app/model"
+	appmodel "github.com/quarkcms/quark-go/pkg/app/model"
 	"github.com/quarkcms/quark-go/pkg/dal/db"
 	"gorm.io/gorm"
 )
@@ -23,7 +23,7 @@ type Post struct {
 func (m *Post) Seeder() {
 
 	// 创建菜单
-	menuSeeders := []*model.Menu{
+	menuSeeders := []*appmodel.Menu{
 		{Id: 18, Name: "内容管理", GuardName: "admin", Icon: "icon-read", Type: "default", Pid: 0, Sort: 0, Path: "/post", Show: 1, Status: 1},
 		{Id: 19, Name: "文章列表", GuardName: "admin", Icon: "", Type: "engine", Pid: 18, Sort: 0, Path: "/api/admin/post/index", Show: 1, Status: 1},
 	}

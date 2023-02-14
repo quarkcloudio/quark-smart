@@ -1,11 +1,11 @@
 package resources
 
 import (
+	"github.com/quarkcms/quark-easy/internal/model"
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/actions"
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
-	"github.com/quarkcms/quark-simple/internal/models"
 )
 
 type Post struct {
@@ -22,7 +22,7 @@ func (p *Post) Init() interface{} {
 	p.Title = "文章"
 
 	// 模型
-	p.Model = &models.Post{}
+	p.Model = &model.Post{}
 
 	// 分页
 	p.PerPage = 10

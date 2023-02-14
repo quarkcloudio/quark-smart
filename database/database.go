@@ -3,10 +3,10 @@ package database
 import (
 	"os"
 
-	"github.com/quarkcms/quark-go/pkg/app/model"
+	"github.com/quarkcms/quark-easy/internal/model"
+	appmodel "github.com/quarkcms/quark-go/pkg/app/model"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/dal/db"
-	"github.com/quarkcms/quark-simple/internal/models"
 )
 
 // 判断路径是否存在
@@ -32,17 +32,17 @@ func Handle(ctx *builder.Context) error {
 
 	// 迁移数据
 	db.Client.AutoMigrate(
-		&models.Post{},
+		&model.Post{},
 	)
 
 	// 如果超级管理员不存在，初始化数据库数据
-	adminInfo, err := (&model.Admin{}).GetInfoById(1)
+	adminInfo, err := (&appmodel.Admin{}).GetInfoById(1)
 	if err != nil && err.Error() != "record not found" {
 		panic(err)
 	}
 	if adminInfo.Id == 0 {
 		// 数据填充
-		(&models.Post{}).Seeder()
+		(&model.Post{}).Seeder()
 	}
 
 	return nil

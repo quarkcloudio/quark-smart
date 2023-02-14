@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/quarkcms/quark-go/pkg/app/handler/admin"
+	"github.com/quarkcms/quark-easy/database"
+	"github.com/quarkcms/quark-easy/internal/admin"
+	"github.com/quarkcms/quark-easy/internal/handler"
+	appproviders "github.com/quarkcms/quark-go/pkg/app/handler/admin"
 	"github.com/quarkcms/quark-go/pkg/app/install"
 	"github.com/quarkcms/quark-go/pkg/app/middleware"
 	"github.com/quarkcms/quark-go/pkg/builder"
-	"github.com/quarkcms/quark-simple/database"
-	adminproviders "github.com/quarkcms/quark-simple/internal/admin"
-	"github.com/quarkcms/quark-simple/internal/handlers"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -23,7 +23,7 @@ func main() {
 			Dialector: mysql.Open(dsn),
 			Opts:      &gorm.Config{},
 		},
-		Providers: append(admin.Providers, adminproviders.Providers...),
+		Providers: append(appproviders.Providers, admin.Providers...),
 		AdminLayout: &builder.AdminLayout{
 			Title: "QuarkEasy",
 		},
@@ -45,7 +45,7 @@ func main() {
 	b.Use(middleware.Handle)
 
 	// 路由
-	b.GET("/", (&handlers.Home{}).Index)
+	b.GET("/", (&handler.Home{}).Index)
 
 	// 启动服务
 	b.Run(":3000")
