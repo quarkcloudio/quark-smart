@@ -1,12 +1,10 @@
 # QuarkSmart
 
-Overview:
+## Overview:
 
 QuarkSmart is a golang single service based on QuarkGo
 
 ## Install
-
-需要go1.18+，首先确保安装好了环境。
 
 1、重命名.env.example 改为 .env 
 
