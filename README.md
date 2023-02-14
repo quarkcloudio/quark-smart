@@ -1,5 +1,5 @@
-# QuarkSimple
+# QuarkEasy
 
 Overview:
 
-Quark-simple is a golang single service based on QuarkGo
+Quark-easy is a golang single service based on QuarkGo

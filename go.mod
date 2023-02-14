@@ -7,8 +7,11 @@ require (
 	github.com/alibabacloud-go/dysmsapi-20170525/v2 v2.0.18
 	github.com/alibabacloud-go/tea v1.1.20
 	github.com/alibabacloud-go/tea-utils v1.4.5
+	github.com/dchest/captcha v1.0.0
+	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/parnurzeal/gorequest v0.2.16
-	github.com/quarkcms/quark-go v1.1.6
+	github.com/quarkcms/quark-go v1.1.8
+	github.com/shirou/gopsutil v3.21.11+incompatible
 	gorm.io/driver/mysql v1.4.5
 	gorm.io/gorm v1.24.5
 )
@@ -23,7 +26,6 @@ require (
 	github.com/aliyun/credentials-go v1.1.2 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/clbanning/mxj/v2 v2.5.6 // indirect
-	github.com/dchest/captcha v1.0.0 // indirect
 	github.com/derekstavis/go-qs v0.0.0-20180720192143-9eef69e6c4e7 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/go-basic/uuid v1.0.0 // indirect
@@ -31,7 +33,6 @@ require (
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/gobeam/stringy v0.0.5 // indirect
-	github.com/golang-jwt/jwt/v4 v4.4.3 // indirect
 	github.com/jinzhu/copier v0.3.5 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
@@ -48,7 +49,6 @@ require (
 	github.com/richardlehane/mscfb v1.0.4 // indirect
 	github.com/richardlehane/msoleps v1.0.3 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
-	github.com/shirou/gopsutil v3.21.11+incompatible // indirect
 	github.com/tjfoc/gmsm v1.3.2 // indirect
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
 	github.com/tklauser/numcpus v0.6.0 // indirect
