@@ -1,10 +1,10 @@
 # QuarkSmart
 
-## Overview:
+Overview:
 
 QuarkSmart is a golang single service based on QuarkGo
 
-## Install
+Install:
 
 1、重命名.env.example 改为 .env 
 
