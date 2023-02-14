@@ -25,7 +25,7 @@ func main() {
 		},
 		Providers: append(admin.Providers, adminproviders.Providers...),
 		AdminLayout: &builder.AdminLayout{
-			Title: "QuarkSimple",
+			Title: "QuarkEasy",
 		},
 	}
 

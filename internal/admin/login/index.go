@@ -32,7 +32,7 @@ func (p *Index) Init() interface{} {
 	p.Logo = false
 
 	// 登录页面标题
-	p.Title = "QuarkSimple"
+	p.Title = "QuarkEasy"
 
 	// 登录页面子标题
 	p.SubTitle = "信息丰富的世界里，唯一稀缺的就是人类的注意力"
