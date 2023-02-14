@@ -15,7 +15,7 @@ type AppConfig struct {
 var App = &AppConfig{
 
 	// 应用名称
-	Name: env.Get("APP_NAME", "QuarkEasy").(string),
+	Name: env.Get("APP_NAME", "QuarkSmart").(string),
 
 	// 应用版本
 	Version: "1.0.0",

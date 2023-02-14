@@ -59,7 +59,7 @@ var Admin = &AdminConfig{
 	SiderWidth: 208,
 
 	// 网站版权 time.Now().Format("2006") + " QuarkGo"
-	Copyright: time.Now().Format("2006") + " QuarkEasy",
+	Copyright: time.Now().Format("2006") + " " + App.Name,
 
 	// 友情链接
 	Links: []map[string]interface{}{
