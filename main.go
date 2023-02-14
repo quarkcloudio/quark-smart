@@ -1,15 +1,15 @@
 package main
 
 import (
-	"github.com/quarkcms/quark-easy/config"
-	"github.com/quarkcms/quark-easy/database"
-	"github.com/quarkcms/quark-easy/internal/admin"
-	"github.com/quarkcms/quark-easy/internal/middleware"
-	"github.com/quarkcms/quark-easy/internal/router"
 	appproviders "github.com/quarkcms/quark-go/pkg/app/handler/admin"
 	appinstall "github.com/quarkcms/quark-go/pkg/app/install"
 	appmiddleware "github.com/quarkcms/quark-go/pkg/app/middleware"
 	"github.com/quarkcms/quark-go/pkg/builder"
+	"github.com/quarkcms/quark-smart/config"
+	"github.com/quarkcms/quark-smart/database"
+	"github.com/quarkcms/quark-smart/internal/admin"
+	"github.com/quarkcms/quark-smart/internal/middleware"
+	"github.com/quarkcms/quark-smart/internal/router"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

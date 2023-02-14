@@ -1,4 +1,4 @@
-module github.com/quarkcms/quark-easy
+module github.com/quarkcms/quark-smart
 
 go 1.18
 

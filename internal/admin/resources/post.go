@@ -1,11 +1,11 @@
 package resources
 
 import (
-	"github.com/quarkcms/quark-easy/internal/model"
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/actions"
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
+	"github.com/quarkcms/quark-smart/internal/model"
 )
 
 type Post struct {

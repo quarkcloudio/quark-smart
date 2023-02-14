@@ -2,4 +2,4 @@
 
 Overview:
 
-Quark-easy is a golang single service based on QuarkGo
+quark-smart is a golang single service based on QuarkGo

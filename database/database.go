@@ -3,10 +3,10 @@ package database
 import (
 	"os"
 
-	"github.com/quarkcms/quark-easy/internal/model"
 	appmodel "github.com/quarkcms/quark-go/pkg/app/model"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/dal/db"
+	"github.com/quarkcms/quark-smart/internal/model"
 )
 
 // 判断路径是否存在

@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/quarkcms/quark-easy/config"
 	"github.com/quarkcms/quark-go/pkg/builder/metrics"
 	"github.com/quarkcms/quark-go/pkg/component/admin/descriptions"
+	"github.com/quarkcms/quark-smart/config"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
 )

@@ -5,12 +5,12 @@ import (
 
 	"github.com/dchest/captcha"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/quarkcms/quark-easy/config"
 	"github.com/quarkcms/quark-go/pkg/app/model"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminlogin"
 	"github.com/quarkcms/quark-go/pkg/hash"
 	"github.com/quarkcms/quark-go/pkg/msg"
+	"github.com/quarkcms/quark-smart/config"
 )
 
 type Index struct {
