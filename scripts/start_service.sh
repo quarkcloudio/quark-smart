@@ -1,7 +1,7 @@
 #!/bin/sh
-PROJECT_PATH=./
+PROJECT_PATH=../
 PROJECT_NAME=main
-PROJECT_LOG_NAME=storage/logs/app.log
+PROJECT_LOG_NAME=../storage/logs/app.log
 
 # 判断logs文件夹下是否有日志文件，没有则创建，用于记录日志
 if [ ! -f $PROJECT_PATH$PROJECT_LOG_NAME ]; then
