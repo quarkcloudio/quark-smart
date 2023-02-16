@@ -22,6 +22,8 @@ vendor/
 
 tmp/
 
+website/storage
+
 install.lock
 
 .env
