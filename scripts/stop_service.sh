@@ -1,5 +1,5 @@
 #!/bin/sh
-PROJECT_PATH=/
+PROJECT_PATH=../
 PROJECT_NAME=main
 
 # stop process
