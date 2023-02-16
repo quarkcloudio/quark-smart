@@ -1,12 +1,9 @@
 #!/bin/sh
 
-start=start
-stop=stop
-
-if [ "$0" == "$start" ]; then
+if [ "$1" == "start"x ]; then
     sh "./scripts/start_service.sh"
 fi
 
-if [ "$0" == "$stop" ]; then
+if [ "$1" == "stop"x ]; then
     sh "./scripts/stop_service.sh"
 fi
