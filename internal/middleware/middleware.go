@@ -14,6 +14,15 @@ func Handle(ctx *builder.Context) error {
 			"/api/admin/admin/store",
 			"/api/admin/admin/save",
 			"/api/admin/admin/delete",
+			"/api/admin/admin/editable",
+			"/api/admin/admin/action/delete",
+			"/api/admin/admin/action/change-status",
+			"/api/admin/menu/store",
+			"/api/admin/menu/save",
+			"/api/admin/menu/delete",
+			"/api/admin/menu/editable",
+			"/api/admin/menu/action/delete",
+			"/api/admin/menu/action/change-status",
 			"/api/admin/account/action/change-account",
 		}
 		for _, forbiddenRoute := range forbiddenRoutes {
