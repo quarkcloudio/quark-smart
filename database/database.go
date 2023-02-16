@@ -27,7 +27,7 @@ func Handle(ctx *builder.Context) error {
 
 	// 如果锁定文件存在则不执行操作
 	if PathExist("install.lock") {
-		return nil
+		return ctx.Next()
 	}
 
 	// 迁移数据
@@ -45,5 +45,5 @@ func Handle(ctx *builder.Context) error {
 		(&model.Post{}).Seeder()
 	}
 
-	return nil
+	return ctx.Next()
 }
