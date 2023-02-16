@@ -1,5 +1,5 @@
 #!/bin/sh
-PROJECT_PATH=../
+PROJECT_PATH=/
 PROJECT_NAME=main
 PROJECT_LOG_NAME=app.log
 
