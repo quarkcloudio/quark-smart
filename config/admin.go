@@ -64,17 +64,17 @@ var Admin = &AdminConfig{
 	// 友情链接
 	Links: []map[string]interface{}{
 		{
-			"key":   "1",
+			"key":   "Quark",
 			"title": "Quark",
 			"href":  "http://www.quarkcms.com/",
 		},
 		{
-			"key":   "2",
+			"key":   "爱小圈",
 			"title": "爱小圈",
 			"href":  "http://www.ixiaoquan.com",
 		},
 		{
-			"key":   "3",
+			"key":   "Github",
 			"title": "Github",
 			"href":  "https://github.com/quarkcms",
 		},
