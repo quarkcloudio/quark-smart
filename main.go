@@ -62,10 +62,10 @@ func main() {
 	b.Static("/", "./website")
 
 	// 构建quarkgo基础数据库、拉取静态文件
-	b.Use(appinstall.Handle)
+	appinstall.Handle()
 
 	// 构建本项目数据库
-	b.Use(database.Handle)
+	database.Handle()
 
 	// 后台中间件
 	b.Use(appmiddleware.Handle)

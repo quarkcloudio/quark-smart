@@ -10,5 +10,5 @@ import (
 var Providers = []interface{}{
 	&login.Index{},
 	&dashboards.Index{},
-	&resources.Post{},
+	&resources.Article{},
 }

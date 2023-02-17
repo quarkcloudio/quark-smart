@@ -8,12 +8,12 @@ import (
 	"github.com/quarkcms/quark-smart/internal/model"
 )
 
-type Post struct {
+type Article struct {
 	adminresource.Template
 }
 
 // 初始化
-func (p *Post) Init() interface{} {
+func (p *Article) Init() interface{} {
 
 	// 初始化模板
 	p.TemplateInit()
@@ -27,14 +27,11 @@ func (p *Post) Init() interface{} {
 	// 分页
 	p.PerPage = 10
 
-	// 导出
-	p.WithExport = true
-
 	return p
 }
 
 // 字段
-func (p *Post) Fields(ctx *builder.Context) []interface{} {
+func (p *Article) Fields(ctx *builder.Context) []interface{} {
 
 	field := &builder.AdminField{}
 
@@ -62,7 +59,7 @@ func (p *Post) Fields(ctx *builder.Context) []interface{} {
 }
 
 // 搜索
-func (p *Post) Searches(ctx *builder.Context) []interface{} {
+func (p *Article) Searches(ctx *builder.Context) []interface{} {
 
 	return []interface{}{
 		(&searches.Input{}).Init("title", "标题"),
@@ -72,7 +69,7 @@ func (p *Post) Searches(ctx *builder.Context) []interface{} {
 }
 
 // 行为
-func (p *Post) Actions(ctx *builder.Context) []interface{} {
+func (p *Article) Actions(ctx *builder.Context) []interface{} {
 
 	return []interface{}{
 		(&actions.Import{}).Init(),
