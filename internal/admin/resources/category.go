@@ -5,6 +5,8 @@ import (
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
+	"github.com/quarkcms/quark-go/pkg/component/admin/tabs"
+	"github.com/quarkcms/quark-go/pkg/lister"
 	"github.com/quarkcms/quark-smart/internal/model"
 )
 
@@ -24,19 +26,45 @@ func (p *Category) Init() interface{} {
 	// 模型
 	p.Model = &model.Category{}
 
+	// 默认排序
+	p.IndexOrder = "sort asc"
+
 	// 分页
-	p.PerPage = 10
+	p.PerPage = false
 
 	return p
 }
 
-// 字段
 func (p *Category) Fields(ctx *builder.Context) []interface{} {
+	var tabPanes []interface{}
 
+	// 基础字段
+	basePane := (&tabs.TabPane{}).
+		Init().
+		SetTitle("基础").
+		SetBody(p.BaseFields(ctx))
+	tabPanes = append(tabPanes, basePane)
+
+	// 扩展字段
+	extendPane := (&tabs.TabPane{}).
+		Init().
+		SetTitle("扩展").
+		SetBody(p.ExtendFields(ctx))
+	tabPanes = append(tabPanes, extendPane)
+
+	return tabPanes
+}
+
+// 基础字段
+func (p *Category) BaseFields(ctx *builder.Context) []interface{} {
 	field := &builder.AdminField{}
 
+	// 获取分类
+	categorys, _ := (&model.Category{}).OrderedList()
+
 	return []interface{}{
-		field.ID("id", "ID"),
+		field.Hidden("id", "ID"),
+		field.Hidden("pid", "父节点"),
 
 		field.Text("title", "标题").
 			SetRules(
@@ -58,11 +86,55 @@ func (p *Category) Fields(ctx *builder.Context) []interface{} {
 				},
 			),
 
+		field.Select("pid", "父节点").
+			SetOptions(categorys).
+			OnlyOnForms(),
+
+		field.TextArea("description", "描述").
+			SetRules(
+				[]string{
+					"required",
+				},
+				map[string]string{
+					"required": "描述必须填写",
+				},
+			).OnlyOnForms(),
+
+		field.Number("sort", "排序").
+			SetEditable(true),
+
 		field.Switch("status", "状态").
 			SetTrueValue("正常").
 			SetFalseValue("禁用").
-			SetEditable(true).
-			SetDefault(true),
+			OnlyOnForms(),
+	}
+}
+
+// 扩展字段
+func (p *Category) ExtendFields(ctx *builder.Context) []interface{} {
+	field := &builder.AdminField{}
+
+	return []interface{}{
+		field.Image("cover_id", "封面图").
+			SetMode("single").
+			OnlyOnForms(),
+
+		field.Text("index_tpl", "频道模板").
+			OnlyOnForms(),
+
+		field.Text("lists_tpl", "列表模板").
+			OnlyOnForms(),
+
+		field.Text("detail_tpl", "详情模板").
+			OnlyOnForms(),
+
+		field.Number("page_num", "分页数量").
+			SetEditable(true),
+
+		field.Switch("status", "状态").
+			SetTrueValue("正常").
+			SetFalseValue("禁用").
+			SetEditable(true),
 	}
 }
 
@@ -80,7 +152,6 @@ func (p *Category) Searches(ctx *builder.Context) []interface{} {
 func (p *Category) Actions(ctx *builder.Context) []interface{} {
 
 	return []interface{}{
-		(&actions.Import{}).Init(),
 		(&actions.CreateLink{}).Init(p.Title),
 		(&actions.Delete{}).Init("批量删除"),
 		(&actions.Disable{}).Init("批量禁用"),
@@ -92,4 +163,36 @@ func (p *Category) Actions(ctx *builder.Context) []interface{} {
 		(&actions.FormBack{}).Init(),
 		(&actions.FormExtraBack{}).Init(),
 	}
+}
+
+// 列表页面显示前回调
+func (p *Category) BeforeIndexShowing(ctx *builder.Context, list []map[string]interface{}) []interface{} {
+	data := ctx.AllQuerys()
+	if search, ok := data["search"].(map[string]interface{}); ok == true && search != nil {
+		result := []interface{}{}
+		for _, v := range list {
+			result = append(result, v)
+		}
+
+		return result
+	}
+
+	// 转换成树形表格
+	tree, _ := lister.ListToTree(list, "id", "pid", "children", 0)
+
+	return tree
+}
+
+// 创建页面显示前回调
+func (p *Category) BeforeCreating(ctx *builder.Context) map[string]interface{} {
+
+	// 表单初始化数据
+	data := map[string]interface{}{
+		"pid":      0,
+		"sort":     0,
+		"status":   true,
+		"page_num": 10,
+	}
+
+	return data
 }

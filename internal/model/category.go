@@ -5,6 +5,7 @@ import (
 
 	appmodel "github.com/quarkcms/quark-go/pkg/app/model"
 	"github.com/quarkcms/quark-go/pkg/dal/db"
+	"github.com/quarkcms/quark-go/pkg/lister"
 	"gorm.io/gorm"
 )
 
@@ -13,7 +14,7 @@ type Category struct {
 	Id          int            `json:"id" gorm:"autoIncrement"`
 	Pid         int            `json:"pid" gorm:"size:11"`
 	Title       string         `json:"title" gorm:"size:200;not null"`
-	Sort        int            `json:"sort" gorm:"size:11;default:10;"`
+	Sort        int            `json:"sort" gorm:"size:11;default:0;"`
 	CoverId     string         `json:"cover_id" gorm:"size:500;"`
 	Name        string         `json:"name" gorm:"size:100;"`
 	Description string         `json:"description" gorm:"size:500;"`
@@ -48,4 +49,40 @@ func (m *Category) Seeder() {
 		{Title: "默认分类", Name: "default", Type: "ARTICLE", Status: 1},
 	}
 	db.Client.Create(&postSeeders)
+}
+
+// 获取菜单的有序列表
+func (model *Category) OrderedList() (list []map[string]interface{}, Error error) {
+	var data []map[string]interface{}
+	err := db.Client.
+		Model(&model).
+		Order("sort asc,id asc").
+		Find(&data).Error
+	if err != nil {
+		return list, err
+	}
+
+	trees, err := lister.ListToTree(data, "id", "pid", "children", 0)
+	if err != nil {
+		return list, err
+	}
+
+	treeList, err := lister.TreeToOrderedList(trees, 0, "title", "children")
+	if err != nil {
+		return list, err
+	}
+
+	list = append(list, map[string]interface{}{
+		"label": "根节点",
+		"value": 0,
+	})
+	for _, v := range treeList {
+		option := map[string]interface{}{
+			"label": v.((map[string]interface{}))["title"],
+			"value": v.(map[string]interface{})["id"],
+		}
+		list = append(list, option)
+	}
+
+	return list, nil
 }
