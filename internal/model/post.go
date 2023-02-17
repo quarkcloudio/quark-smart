@@ -43,7 +43,7 @@ type Post struct {
 // Seeder
 func (m *Post) Seeder() {
 
-	// 如果菜单已存在，不执行
+	// 如果菜单已存在，不执行Seeder操作
 	if (&appmodel.Menu{}).IsExist(18) {
 		return
 	}

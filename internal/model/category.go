@@ -32,7 +32,7 @@ type Category struct {
 // Seeder
 func (m *Category) Seeder() {
 
-	// 如果菜单已存在，不执行
+	// 如果菜单已存在，不执行Seeder操作
 	if (&appmodel.Menu{}).IsExist(19) {
 		return
 	}

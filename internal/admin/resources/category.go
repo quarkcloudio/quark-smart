@@ -8,21 +8,21 @@ import (
 	"github.com/quarkcms/quark-smart/internal/model"
 )
 
-type Article struct {
+type Category struct {
 	adminresource.Template
 }
 
 // 初始化
-func (p *Article) Init() interface{} {
+func (p *Category) Init() interface{} {
 
 	// 初始化模板
 	p.TemplateInit()
 
 	// 标题
-	p.Title = "文章"
+	p.Title = "分类"
 
 	// 模型
-	p.Model = &model.Post{}
+	p.Model = &model.Category{}
 
 	// 分页
 	p.PerPage = 10
@@ -31,7 +31,7 @@ func (p *Article) Init() interface{} {
 }
 
 // 字段
-func (p *Article) Fields(ctx *builder.Context) []interface{} {
+func (p *Category) Fields(ctx *builder.Context) []interface{} {
 
 	field := &builder.AdminField{}
 
@@ -48,9 +48,15 @@ func (p *Article) Fields(ctx *builder.Context) []interface{} {
 				},
 			),
 
-		field.Text("author", "作者"),
-
-		field.Editor("content", "内容").OnlyOnForms(),
+		field.Text("name", "缩略名").
+			SetRules(
+				[]string{
+					"required",
+				},
+				map[string]string{
+					"required": "缩略名必须填写",
+				},
+			),
 
 		field.Switch("status", "状态").
 			SetTrueValue("正常").
@@ -61,7 +67,7 @@ func (p *Article) Fields(ctx *builder.Context) []interface{} {
 }
 
 // 搜索
-func (p *Article) Searches(ctx *builder.Context) []interface{} {
+func (p *Category) Searches(ctx *builder.Context) []interface{} {
 
 	return []interface{}{
 		(&searches.Input{}).Init("title", "标题"),
@@ -71,7 +77,7 @@ func (p *Article) Searches(ctx *builder.Context) []interface{} {
 }
 
 // 行为
-func (p *Article) Actions(ctx *builder.Context) []interface{} {
+func (p *Category) Actions(ctx *builder.Context) []interface{} {
 
 	return []interface{}{
 		(&actions.Import{}).Init(),
