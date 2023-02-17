@@ -5,6 +5,7 @@ import (
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
+	"github.com/quarkcms/quark-go/pkg/component/admin/tabs"
 	"github.com/quarkcms/quark-smart/internal/model"
 )
 
@@ -30,13 +31,37 @@ func (p *Article) Init() interface{} {
 	return p
 }
 
-// 字段
 func (p *Article) Fields(ctx *builder.Context) []interface{} {
+	var tabPanes []interface{}
 
+	// 基础字段
+	basePane := (&tabs.TabPane{}).
+		Init().
+		SetTitle("基础").
+		SetBody(p.BaseFields(ctx))
+	tabPanes = append(tabPanes, basePane)
+
+	// 扩展字段
+	extendPane := (&tabs.TabPane{}).
+		Init().
+		SetTitle("扩展").
+		SetBody(p.ExtendFields(ctx))
+	tabPanes = append(tabPanes, extendPane)
+
+	return tabPanes
+}
+
+// 基础字段
+func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 	field := &builder.AdminField{}
+
+	// 获取分类
+	categorys, _ := (&model.Category{}).OrderedList()
 
 	return []interface{}{
 		field.ID("id", "ID"),
+
+		field.Hidden("adminid", "AdminID"),
 
 		field.Text("title", "标题").
 			SetRules(
@@ -48,15 +73,59 @@ func (p *Article) Fields(ctx *builder.Context) []interface{} {
 				},
 			),
 
+		field.TextArea("description", "描述").
+			SetRules(
+				[]string{
+					"max:200",
+				},
+				map[string]string{
+					"max": "描述不能超过200个字符",
+				},
+			).
+			OnlyOnForms(),
+
 		field.Text("author", "作者"),
+
+		field.Number("level", "排序").
+			SetEditable(true),
+
+		field.Text("source", "来源").
+			OnlyOnForms(),
+
+		field.Checkbox("position", "推荐位").
+			SetOptions(map[interface{}]interface{}{
+				1: "首页推荐",
+				2: "频道推荐",
+				3: "列表推荐",
+				4: "详情推荐",
+			}),
+
+		field.Select("pid", "分类目录").
+			SetOptions(categorys).
+			OnlyOnForms(),
 
 		field.Editor("content", "内容").OnlyOnForms(),
 
 		field.Switch("status", "状态").
 			SetTrueValue("正常").
 			SetFalseValue("禁用").
-			SetEditable(true).
-			SetDefault(true),
+			OnlyOnForms(),
+	}
+}
+
+// 扩展字段
+func (p *Article) ExtendFields(ctx *builder.Context) []interface{} {
+	field := &builder.AdminField{}
+
+	return []interface{}{
+		field.Image("cover_id", "封面图").
+			SetMode("single").
+			OnlyOnForms(),
+
+		field.Switch("status", "状态").
+			SetTrueValue("正常").
+			SetFalseValue("禁用").
+			SetEditable(true),
 	}
 }
 
