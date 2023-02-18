@@ -91,14 +91,7 @@ func (p *Category) BaseFields(ctx *builder.Context) []interface{} {
 			OnlyOnForms(),
 
 		field.TextArea("description", "描述").
-			SetRules(
-				[]string{
-					"required",
-				},
-				map[string]string{
-					"required": "描述必须填写",
-				},
-			).OnlyOnForms(),
+			OnlyOnForms(),
 
 		field.Number("sort", "排序").
 			SetEditable(true),

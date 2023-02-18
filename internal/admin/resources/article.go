@@ -139,13 +139,7 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 
 		field.Editor("content", "内容").OnlyOnForms(),
 
-		field.Datetime("created_at", "发布时间", func() interface{} {
-			if p.Field["created_at"] == nil {
-				return p.Field["created_at"]
-			}
-
-			return p.Field["created_at"].(time.Time).Format("2006-01-02 15:04:05")
-		}),
+		field.Datetime("created_at", "发布时间"),
 
 		field.Switch("status", "状态").
 			SetTrueValue("正常").
