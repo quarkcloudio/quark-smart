@@ -1,6 +1,8 @@
 package resources
 
 import (
+	"time"
+
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/actions"
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
@@ -93,18 +95,57 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 			OnlyOnForms(),
 
 		field.Checkbox("position", "推荐位").
-			SetOptions(map[interface{}]interface{}{
-				1: "首页推荐",
-				2: "频道推荐",
-				3: "列表推荐",
-				4: "详情推荐",
+			SetOptions([]map[string]interface{}{
+				{"label": "首页推荐", "value": 1},
+				{"label": "频道推荐", "value": 2},
+				{"label": "列表推荐", "value": 3},
+				{"label": "详情推荐", "value": 4},
 			}),
+
+		field.Radio("show_type", "展现形式").
+			SetOptions([]map[string]interface{}{
+				{"label": "无图", "value": 1},
+				{"label": "单图", "value": 2},
+				{"label": "多图", "value": 3},
+			}).
+			SetWhen(2, func() interface{} {
+				return []interface{}{
+					field.Image("single_cover_ids", "封面图").
+						SetMode("multiple").
+						SetLimitNum(1).
+						OnlyOnForms(),
+				}
+			}).
+			SetWhen(3, func() interface{} {
+				return []interface{}{
+					field.Image("multiple_cover_ids", "封面图").
+						SetMode("multiple").
+						OnlyOnForms(),
+				}
+			}).
+			OnlyOnForms(),
 
 		field.Select("pid", "分类目录").
 			SetOptions(categorys).
+			SetRules(
+				[]string{
+					"required",
+				},
+				map[string]string{
+					"required": "请选择分类目录",
+				},
+			).
 			OnlyOnForms(),
 
 		field.Editor("content", "内容").OnlyOnForms(),
+
+		field.Datetime("created_at", "发布时间", func() interface{} {
+			if p.Field["created_at"] == nil {
+				return p.Field["created_at"]
+			}
+
+			return p.Field["created_at"].(time.Time).Format("2006-01-02 15:04:05")
+		}),
 
 		field.Switch("status", "状态").
 			SetTrueValue("正常").
@@ -118,8 +159,30 @@ func (p *Article) ExtendFields(ctx *builder.Context) []interface{} {
 	field := &builder.AdminField{}
 
 	return []interface{}{
-		field.Image("cover_id", "封面图").
-			SetMode("single").
+		field.Text("name", "缩略名").
+			OnlyOnForms(),
+
+		field.Number("level", "排序").
+			OnlyOnForms(),
+
+		field.Number("view", "浏览量").
+			OnlyOnForms(),
+
+		field.Number("comment", "评论量").
+			OnlyOnForms(),
+
+		field.Text("password", "访问密码").
+			OnlyOnForms(),
+
+		field.File("file_ids", "附件").
+			OnlyOnForms(),
+
+		field.Switch("comment_status", "允许评论").
+			SetTrueValue("正常").
+			SetFalseValue("禁用").
+			SetEditable(true),
+
+		field.Datetime("created_at", "发布时间").
 			OnlyOnForms(),
 
 		field.Switch("status", "状态").
@@ -154,4 +217,20 @@ func (p *Article) Actions(ctx *builder.Context) []interface{} {
 		(&actions.FormBack{}).Init(),
 		(&actions.FormExtraBack{}).Init(),
 	}
+}
+
+// 创建页面显示前回调
+func (p *Article) BeforeCreating(ctx *builder.Context) map[string]interface{} {
+
+	// 表单初始化数据
+	data := map[string]interface{}{
+		"level":      0,
+		"view":       0,
+		"show_type":  1,
+		"comment":    0,
+		"created_at": time.Now().Format("2006-01-02 15:04:05"),
+		"status":     true,
+	}
+
+	return data
 }
