@@ -60,7 +60,7 @@ func (p *Category) BaseFields(ctx *builder.Context) []interface{} {
 	field := &builder.AdminField{}
 
 	// 获取分类
-	categorys, _ := (&model.Category{}).OrderedList()
+	categorys, _ := (&model.Category{}).OrderedList(true)
 
 	return []interface{}{
 		field.Hidden("id", "ID"),

@@ -52,7 +52,7 @@ func (m *Category) Seeder() {
 }
 
 // 获取菜单的有序列表
-func (model *Category) OrderedList() (list []map[string]interface{}, Error error) {
+func (model *Category) OrderedList(root bool) (list []map[string]interface{}, Error error) {
 	var data []map[string]interface{}
 	err := db.Client.
 		Model(&model).
@@ -72,10 +72,14 @@ func (model *Category) OrderedList() (list []map[string]interface{}, Error error
 		return list, err
 	}
 
-	list = append(list, map[string]interface{}{
-		"label": "根节点",
-		"value": 0,
-	})
+	// 是否有跟节点
+	if root {
+		list = append(list, map[string]interface{}{
+			"label": "根节点",
+			"value": 0,
+		})
+	}
+
 	for _, v := range treeList {
 		option := map[string]interface{}{
 			"label": v.((map[string]interface{}))["title"],
