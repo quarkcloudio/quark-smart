@@ -12,9 +12,13 @@ func Handle() {
 	db.Client.AutoMigrate(
 		&model.Post{},
 		&model.Category{},
+		&model.Banner{},
+		&model.BannerCategory{},
 	)
 
 	// 数据填充
 	(&model.Post{}).Seeder()
 	(&model.Category{}).Seeder()
+	(&model.Banner{}).Seeder()
+	(&model.BannerCategory{}).Seeder()
 }

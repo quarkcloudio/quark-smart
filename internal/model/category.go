@@ -44,11 +44,11 @@ func (m *Category) Seeder() {
 	}
 	db.Client.Create(&menuSeeders)
 
-	// 创建默认文章
-	postSeeders := []Category{
+	// 创建默认内容
+	seeders := []Category{
 		{Title: "默认分类", Name: "default", Type: "ARTICLE", Status: 1},
 	}
-	db.Client.Create(&postSeeders)
+	db.Client.Create(&seeders)
 }
 
 // 获取菜单的有序列表

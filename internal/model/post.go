@@ -55,9 +55,9 @@ func (m *Post) Seeder() {
 	}
 	db.Client.Create(&menuSeeders)
 
-	// 创建默认文章
-	postSeeders := []Post{
+	// 创建默认内容
+	seeders := []Post{
 		{Title: "Hello world!", Name: "hello-world", CategoryId: 1, Content: "Hello world!", Status: 1},
 	}
-	db.Client.Create(&postSeeders)
+	db.Client.Create(&seeders)
 }
