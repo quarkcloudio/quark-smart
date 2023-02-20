@@ -5,6 +5,7 @@ import (
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
+	isearches "github.com/quarkcms/quark-smart/internal/admin/searches"
 	"github.com/quarkcms/quark-smart/internal/model"
 )
 
@@ -83,6 +84,7 @@ func (p *Banner) Searches(ctx *builder.Context) []interface{} {
 
 	return []interface{}{
 		(&searches.Input{}).Init("title", "标题"),
+		(&isearches.BannerCategory{}).Init("category_id", "广告位"),
 		(&searches.Status{}).Init(),
 		(&searches.DateTimeRange{}).Init("created_at", "创建时间"),
 	}

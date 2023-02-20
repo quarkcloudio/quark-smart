@@ -61,3 +61,18 @@ func (model *BannerCategory) List() (list []map[string]interface{}, Error error)
 
 	return list, nil
 }
+
+// 获取搜索框Select的属性
+func (model *BannerCategory) Options() (list map[interface{}]interface{}, Error error) {
+	options := map[interface{}]interface{}{}
+	getList := []BannerCategory{}
+	err := db.Client.Find(&getList).Error
+	if err != nil {
+		return options, err
+	}
+	for _, v := range getList {
+		options[v.Id] = v.Title
+	}
+
+	return options, nil
+}

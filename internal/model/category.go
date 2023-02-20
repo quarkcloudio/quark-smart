@@ -90,3 +90,18 @@ func (model *Category) OrderedList(root bool) (list []map[string]interface{}, Er
 
 	return list, nil
 }
+
+// 获取搜索框Select的属性
+func (model *Category) Options() (list map[interface{}]interface{}, Error error) {
+	options := map[interface{}]interface{}{}
+	getList := []Category{}
+	err := db.Client.Find(&getList).Error
+	if err != nil {
+		return options, err
+	}
+	for _, v := range getList {
+		options[v.Id] = v.Title
+	}
+
+	return options, nil
+}
