@@ -5,6 +5,7 @@ import (
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
+	"github.com/quarkcms/quark-go/pkg/lister"
 	"github.com/quarkcms/quark-smart/internal/model"
 	"gorm.io/gorm"
 )
@@ -25,8 +26,11 @@ func (p *Page) Init() interface{} {
 	// 模型
 	p.Model = &model.Post{}
 
+	// 默认排序
+	p.IndexOrder = "id asc"
+
 	// 分页
-	p.PerPage = 10
+	p.PerPage = false
 
 	return p
 }
@@ -44,7 +48,9 @@ func (p *Page) Fields(ctx *builder.Context) []interface{} {
 	pages, _ := (&model.Post{}).OrderedList(false)
 
 	return []interface{}{
-		field.ID("id", "ID"),
+		field.Hidden("id", "ID"),
+
+		field.Hidden("pid", "父节点"),
 
 		field.Hidden("adminid", "AdminID"),
 
@@ -72,21 +78,19 @@ func (p *Page) Fields(ctx *builder.Context) []interface{} {
 			).
 			OnlyOnForms(),
 
-		field.Number("level", "排序").
-			SetEditable(true),
-
 		field.Select("pid", "根节点").
 			SetOptions(pages).
 			OnlyOnForms(),
 
 		field.Editor("content", "内容").OnlyOnForms(),
 
-		field.Datetime("created_at", "创建时间"),
+		field.Datetime("created_at", "创建时间").OnlyOnIndex(),
 
 		field.Switch("status", "状态").
 			SetTrueValue("正常").
 			SetFalseValue("禁用").
-			OnlyOnForms(),
+			SetEditable(true).
+			SetDefault(true),
 	}
 }
 
@@ -115,4 +119,22 @@ func (p *Page) Actions(ctx *builder.Context) []interface{} {
 		(&actions.FormBack{}).Init(),
 		(&actions.FormExtraBack{}).Init(),
 	}
+}
+
+// 列表页面显示前回调
+func (p *Page) BeforeIndexShowing(ctx *builder.Context, list []map[string]interface{}) []interface{} {
+	data := ctx.AllQuerys()
+	if search, ok := data["search"].(map[string]interface{}); ok == true && search != nil {
+		result := []interface{}{}
+		for _, v := range list {
+			result = append(result, v)
+		}
+
+		return result
+	}
+
+	// 转换成树形表格
+	tree, _ := lister.ListToTree(list, "id", "pid", "children", 0)
+
+	return tree
 }

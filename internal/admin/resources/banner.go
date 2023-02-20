@@ -74,8 +74,8 @@ func (p *Banner) Fields(ctx *builder.Context) []interface{} {
 		field.Switch("status", "状态").
 			SetTrueValue("正常").
 			SetFalseValue("禁用").
-			SetDefault(true).
-			OnlyOnForms(),
+			SetEditable(true).
+			SetDefault(true),
 	}
 }
 
