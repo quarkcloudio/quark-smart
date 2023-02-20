@@ -64,6 +64,7 @@ func (p *Category) BaseFields(ctx *builder.Context) []interface{} {
 
 	return []interface{}{
 		field.Hidden("id", "ID"),
+
 		field.Hidden("pid", "父节点"),
 
 		field.Text("title", "标题").

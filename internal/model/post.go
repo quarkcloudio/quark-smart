@@ -32,7 +32,7 @@ type Post struct {
 	Comment       int            `json:"comment" gorm:"default:0"`
 	View          int            `json:"view" gorm:"default:0"`
 	PageTpl       string         `json:"page_tpl" gorm:"size:100"`
-	CommentStatus int            `json:"comment_status" gorm:"size:1;not null;default:1"`
+	CommentStatus int            `json:"comment_status" gorm:"size:1;not null;default:0"`
 	FileIds       string         `json:"file_ids" gorm:"size:1000;default:null"`
 	Status        int            `json:"status" gorm:"size:1;not null;default:1"`
 	CreatedAt     time.Time      `json:"created_at"`
