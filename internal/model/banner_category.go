@@ -37,7 +37,7 @@ func (m *BannerCategory) Seeder() {
 	db.Client.Create(&menuSeeders)
 
 	// 创建默认内容
-	seeders := []Category{
+	seeders := []BannerCategory{
 		{Title: "首页广告位", Name: "indexPage", Status: 1},
 	}
 	db.Client.Create(&seeders)
