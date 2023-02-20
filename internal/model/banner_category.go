@@ -25,14 +25,14 @@ type BannerCategory struct {
 func (m *BannerCategory) Seeder() {
 
 	// 如果菜单已存在，不执行Seeder操作
-	if (&appmodel.Menu{}).IsExist(21) {
+	if (&appmodel.Menu{}).IsExist(23) {
 		return
 	}
 
 	// 创建菜单
 	menuSeeders := []*appmodel.Menu{
-		{Id: 21, Name: "广告管理", GuardName: "admin", Icon: "icon-banner", Type: "default", Pid: 0, Sort: 0, Path: "/banner", Show: 1, Status: 1},
-		{Id: 22, Name: "广告位列表", GuardName: "admin", Icon: "", Type: "engine", Pid: 21, Sort: 0, Path: "/api/admin/bannerCategory/index", Show: 1, Status: 1},
+		{Id: 23, Name: "广告管理", GuardName: "admin", Icon: "icon-banner", Type: "default", Pid: 0, Sort: 0, Path: "/banner", Show: 1, Status: 1},
+		{Id: 24, Name: "广告位列表", GuardName: "admin", Icon: "", Type: "engine", Pid: 23, Sort: 0, Path: "/api/admin/bannerCategory/index", Show: 1, Status: 1},
 	}
 	db.Client.Create(&menuSeeders)
 

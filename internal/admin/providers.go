@@ -11,6 +11,7 @@ var Providers = []interface{}{
 	&login.Index{},
 	&dashboards.Index{},
 	&resources.Article{},
+	&resources.Page{},
 	&resources.Category{},
 	&resources.Banner{},
 	&resources.BannerCategory{},

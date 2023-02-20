@@ -10,6 +10,7 @@ import (
 	"github.com/quarkcms/quark-go/pkg/component/admin/tabs"
 	isearches "github.com/quarkcms/quark-smart/internal/admin/searches"
 	"github.com/quarkcms/quark-smart/internal/model"
+	"gorm.io/gorm"
 )
 
 type Article struct {
@@ -32,6 +33,11 @@ func (p *Article) Init() interface{} {
 	p.PerPage = 10
 
 	return p
+}
+
+// 只查询文章类型
+func (p *Article) Query(ctx *builder.Context, query *gorm.DB) *gorm.DB {
+	return query.Where("type", "ARTICLE")
 }
 
 func (p *Article) Fields(ctx *builder.Context) []interface{} {
