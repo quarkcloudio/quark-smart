@@ -95,6 +95,7 @@ func (p *Category) BaseFields(ctx *builder.Context) []interface{} {
 			OnlyOnForms(),
 
 		field.Number("sort", "排序").
+			SetEditable(true).
 			SetEditable(true),
 
 		field.Switch("status", "状态").

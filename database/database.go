@@ -14,6 +14,7 @@ func Handle() {
 		&model.Category{},
 		&model.Banner{},
 		&model.BannerCategory{},
+		&model.Navigation{},
 	)
 
 	// 数据填充
@@ -21,4 +22,5 @@ func Handle() {
 	(&model.Category{}).Seeder()
 	(&model.Banner{}).Seeder()
 	(&model.BannerCategory{}).Seeder()
+	(&model.Navigation{}).Seeder()
 }
