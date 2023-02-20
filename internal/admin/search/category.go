@@ -1,4 +1,4 @@
-package searches
+package search
 
 import (
 	"github.com/quarkcms/quark-go/pkg/builder"
@@ -7,14 +7,13 @@ import (
 	"gorm.io/gorm"
 )
 
-type BannerCategory struct {
+type Category struct {
 	searches.Select
 }
 
 // 初始化
-func (p *BannerCategory) Init(column string, name string) *BannerCategory {
+func (p *Category) Init(column string, name string) *Category {
 	p.ParentInit()
-
 	p.Column = column
 	p.Name = name
 
@@ -22,7 +21,7 @@ func (p *BannerCategory) Init(column string, name string) *BannerCategory {
 }
 
 // 执行查询
-func (p *BannerCategory) Apply(ctx *builder.Context, query *gorm.DB, value interface{}) *gorm.DB {
+func (p *Category) Apply(ctx *builder.Context, query *gorm.DB, value interface{}) *gorm.DB {
 	if value == "" || value == nil {
 		return query
 	}
@@ -31,8 +30,8 @@ func (p *BannerCategory) Apply(ctx *builder.Context, query *gorm.DB, value inter
 }
 
 // 属性
-func (p *BannerCategory) Options(ctx *builder.Context) map[interface{}]interface{} {
-	options, _ := (&model.BannerCategory{}).Options()
+func (p *Category) Options(ctx *builder.Context) map[interface{}]interface{} {
+	options, _ := (&model.Category{}).Options()
 
 	return options
 }

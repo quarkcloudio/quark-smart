@@ -1,4 +1,4 @@
-package resources
+package resource
 
 import (
 	"time"
@@ -8,7 +8,7 @@ import (
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
 	"github.com/quarkcms/quark-go/pkg/component/admin/tabs"
-	isearches "github.com/quarkcms/quark-smart/internal/admin/searches"
+	"github.com/quarkcms/quark-smart/internal/admin/search"
 	"github.com/quarkcms/quark-smart/internal/model"
 	"gorm.io/gorm"
 )
@@ -198,7 +198,7 @@ func (p *Article) Searches(ctx *builder.Context) []interface{} {
 
 	return []interface{}{
 		(&searches.Input{}).Init("title", "标题"),
-		(&isearches.Category{}).Init("category_id", "分类目录"),
+		(&search.Category{}).Init("category_id", "分类目录"),
 		(&searches.Status{}).Init(),
 		(&searches.DateTimeRange{}).Init("created_at", "创建时间"),
 	}

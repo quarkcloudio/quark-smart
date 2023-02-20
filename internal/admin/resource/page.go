@@ -1,4 +1,4 @@
-package resources
+package resource
 
 import (
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/actions"

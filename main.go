@@ -37,7 +37,7 @@ func main() {
 			Dialector: mysql.Open(dsn),
 			Opts:      &gorm.Config{},
 		},
-		Providers: append(appproviders.Providers, admin.Providers...),
+		Providers: append(appproviders.Providers, admin.Provider...),
 		AdminLayout: &builder.AdminLayout{
 			Title:        config.Admin.Title,
 			Logo:         config.Admin.Logo,
