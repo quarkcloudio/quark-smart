@@ -65,7 +65,7 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 	field := &builder.AdminField{}
 
 	// 获取分类
-	categorys, _ := (&model.Category{}).OrderedList(false)
+	categorys, _ := (&model.Category{}).SelectTreeData(false)
 
 	return []interface{}{
 		field.ID("id", "ID"),

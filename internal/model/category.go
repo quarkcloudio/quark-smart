@@ -51,26 +51,15 @@ func (m *Category) Seeder() {
 	db.Client.Create(&seeders)
 }
 
-// 获取菜单的有序列表
-func (model *Category) OrderedList(root bool) (list []map[string]interface{}, Error error) {
-	var data []map[string]interface{}
-	err := db.Client.
-		Model(&model).
-		Order("sort asc,id asc").
-		Find(&data).Error
+// 获取SelectTree组件的数据
+func (m *Category) SelectTreeData(root bool) (list []interface{}, Error error) {
+	categories := []Category{}
+	err := db.Client.Where("status = ?", 1).Select("title", "id", "pid").Find(&categories).Error
 	if err != nil {
 		return list, err
 	}
 
-	trees, err := lister.ListToTree(data, "id", "pid", "children", 0)
-	if err != nil {
-		return list, err
-	}
-
-	treeList, err := lister.TreeToOrderedList(trees, 0, "title", "children")
-	if err != nil {
-		return list, err
-	}
+	treeList := []map[string]interface{}{}
 
 	// 是否有跟节点
 	if root {
@@ -80,15 +69,22 @@ func (model *Category) OrderedList(root bool) (list []map[string]interface{}, Er
 		})
 	}
 
-	for _, v := range treeList {
-		option := map[string]interface{}{
-			"label": v.((map[string]interface{}))["title"],
-			"value": v.(map[string]interface{})["id"],
+	for _, v := range categories {
+		item := map[string]interface{}{
+			"value": v.Id,
+			"pid":   v.Pid,
+			"label": v.Title,
 		}
-		list = append(list, option)
+		treeList = append(treeList, item)
 	}
 
-	return list, nil
+	tree, err := lister.ListToTree(treeList, "value", "pid", "children", 0)
+	if err != nil {
+		return list, err
+	}
+	list = append(list, tree...)
+
+	return list, err
 }
 
 // 获取搜索框Select的属性

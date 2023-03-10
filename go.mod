@@ -10,7 +10,7 @@ require (
 	github.com/dchest/captcha v1.0.0
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/parnurzeal/gorequest v0.2.16
-	github.com/quarkcms/quark-go v1.1.23
+	github.com/quarkcms/quark-go v1.1.32
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	gorm.io/driver/mysql v1.4.5
 	gorm.io/gorm v1.24.5

@@ -45,7 +45,7 @@ func (p *Page) Fields(ctx *builder.Context) []interface{} {
 	field := &builder.AdminField{}
 
 	// 获取分类
-	pages, _ := (&model.Post{}).OrderedList(false)
+	pages, _ := (&model.Post{}).OrderedList(true)
 
 	return []interface{}{
 		field.Hidden("id", "ID"),
