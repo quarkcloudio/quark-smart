@@ -71,7 +71,7 @@ func main() {
 	b.Use(appmiddleware.Handle)
 
 	// 中间件
-	b.Use(middleware.Handle)
+	b.Use((&middleware.AppMiddleware{}).Handle)
 
 	// 注册路由
 	router.Register(b)

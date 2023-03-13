@@ -6,8 +6,11 @@ import (
 	"github.com/quarkcms/quark-smart/config"
 )
 
+// 结构体
+type AppMiddleware struct{}
+
 // 中间件
-func Handle(ctx *builder.Context) error {
+func (am *AppMiddleware) Handle(ctx *builder.Context) error {
 	if config.App.Env == "demo" {
 		isForbiddenRoute := false
 		forbiddenRoutes := []string{
