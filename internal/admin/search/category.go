@@ -31,7 +31,7 @@ func (p *Category) Apply(ctx *builder.Context, query *gorm.DB, value interface{}
 
 // 属性
 func (p *Category) Options(ctx *builder.Context) interface{} {
-	options, _ := (&model.Category{}).TreeSelect(true)
+	options, _ := (&model.Category{}).TreeSelect(false)
 
 	return options
 }
