@@ -5,6 +5,7 @@ import (
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
+	"github.com/quarkcms/quark-go/pkg/component/admin/form/rule"
 	"github.com/quarkcms/quark-go/pkg/lister"
 	"github.com/quarkcms/quark-smart/internal/model"
 )
@@ -35,10 +36,10 @@ func (p *Navigation) Init() interface{} {
 }
 
 func (p *Navigation) Fields(ctx *builder.Context) []interface{} {
-	field := &builder.AdminField{}
+	field := &adminresource.Field{}
 
 	// 获取分类
-	categorys, _ := (&model.Navigation{}).OrderedList(true)
+	categorys, _ := (&model.Navigation{}).TreeSelect(true)
 
 	return []interface{}{
 		field.Hidden("id", "ID"),
@@ -46,17 +47,12 @@ func (p *Navigation) Fields(ctx *builder.Context) []interface{} {
 		field.Hidden("pid", "父节点"),
 
 		field.Text("title", "标题").
-			SetRules(
-				[]string{
-					"required",
-				},
-				map[string]string{
-					"required": "标题必须填写",
-				},
-			),
+			SetRules([]*rule.Rule{
+				rule.Required(true, "标题必须填写"),
+			}),
 
-		field.Select("pid", "父节点").
-			SetOptions(categorys).
+		field.TreeSelect("pid", "父节点").
+			SetData(categorys).
 			SetDefault(0).
 			OnlyOnForms(),
 

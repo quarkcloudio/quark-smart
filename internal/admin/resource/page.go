@@ -5,6 +5,7 @@ import (
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
+	"github.com/quarkcms/quark-go/pkg/component/admin/form/rule"
 	"github.com/quarkcms/quark-go/pkg/lister"
 	"github.com/quarkcms/quark-smart/internal/model"
 	"gorm.io/gorm"
@@ -42,10 +43,10 @@ func (p *Page) Query(ctx *builder.Context, query *gorm.DB) *gorm.DB {
 
 // 字段
 func (p *Page) Fields(ctx *builder.Context) []interface{} {
-	field := &builder.AdminField{}
+	field := &adminresource.Field{}
 
 	// 获取分类
-	pages, _ := (&model.Post{}).OrderedList(true)
+	pages, _ := (&model.Post{}).TreeSelect(true)
 
 	return []interface{}{
 		field.Hidden("id", "ID"),
@@ -55,31 +56,20 @@ func (p *Page) Fields(ctx *builder.Context) []interface{} {
 		field.Hidden("adminid", "AdminID"),
 
 		field.Text("title", "标题").
-			SetRules(
-				[]string{
-					"required",
-				},
-				map[string]string{
-					"required": "标题必须填写",
-				},
-			),
-
+			SetRules([]*rule.Rule{
+				rule.Required(true, "标题必须填写"),
+			}),
 		field.Text("name", "缩略名").
 			OnlyOnForms(),
 
 		field.TextArea("description", "描述").
-			SetRules(
-				[]string{
-					"max:200",
-				},
-				map[string]string{
-					"max": "描述不能超过200个字符",
-				},
-			).
+			SetRules([]*rule.Rule{
+				rule.Max(200, "描述不能超过200个字符"),
+			}).
 			OnlyOnForms(),
 
-		field.Select("pid", "根节点").
-			SetOptions(pages).
+		field.TreeSelect("pid", "根节点").
+			SetData(pages).
 			OnlyOnForms(),
 
 		field.Editor("content", "内容").OnlyOnForms(),

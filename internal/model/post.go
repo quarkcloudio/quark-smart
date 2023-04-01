@@ -4,8 +4,8 @@ import (
 	"time"
 
 	appmodel "github.com/quarkcms/quark-go/pkg/app/model"
+	"github.com/quarkcms/quark-go/pkg/component/admin/form/fields/treeselect"
 	"github.com/quarkcms/quark-go/pkg/dal/db"
-	"github.com/quarkcms/quark-go/pkg/lister"
 	"gorm.io/gorm"
 )
 
@@ -65,43 +65,49 @@ func (m *Post) Seeder() {
 	db.Client.Create(&seeders)
 }
 
-// 获取菜单的有序列表
-func (model *Post) OrderedList(root bool) (list []map[string]interface{}, Error error) {
-	var data []map[string]interface{}
-	err := db.Client.
-		Model(&model).
-		Where("type", "PAGE").
-		Order("id asc").
-		Find(&data).Error
-	if err != nil {
-		return list, err
-	}
+// 获取TreeSelect组件数据
+func (model *Post) TreeSelect(root bool) (list []*treeselect.TreeData, Error error) {
 
-	trees, err := lister.ListToTree(data, "id", "pid", "children", 0)
-	if err != nil {
-		return list, err
-	}
-
-	treeList, err := lister.TreeToOrderedList(trees, 0, "title", "children")
-	if err != nil {
-		return list, err
-	}
-
-	// 是否有跟节点
+	// 是否有根节点
 	if root {
-		list = append(list, map[string]interface{}{
-			"label": "根节点",
-			"value": 0,
+		list = append(list, &treeselect.TreeData{
+			Title: "根节点",
+			Value: 0,
 		})
 	}
 
-	for _, v := range treeList {
-		option := map[string]interface{}{
-			"label": v.((map[string]interface{}))["title"],
-			"value": v.(map[string]interface{})["id"],
-		}
-		list = append(list, option)
-	}
+	list = append(list, model.FindTreeSelectNode(0)...)
 
 	return list, nil
+}
+
+// 递归获取TreeSelect组件数据
+func (model *Post) FindTreeSelectNode(pid int) (list []*treeselect.TreeData) {
+	posts := []Post{}
+	db.Client.
+		Where("pid = ?", pid).
+		Where("type", "PAGE").
+		Order("id asc").
+		Select("title", "id", "pid").
+		Find(&posts)
+
+	if len(posts) == 0 {
+		return list
+	}
+
+	for _, v := range posts {
+		item := &treeselect.TreeData{
+			Value: v.Id,
+			Title: v.Title,
+		}
+
+		children := model.FindTreeSelectNode(v.Id)
+		if len(children) > 0 {
+			item.Children = children
+		}
+
+		list = append(list, item)
+	}
+
+	return list
 }

@@ -5,6 +5,7 @@ import (
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
+	"github.com/quarkcms/quark-go/pkg/component/admin/form/rule"
 	"github.com/quarkcms/quark-smart/internal/admin/search"
 	"github.com/quarkcms/quark-smart/internal/model"
 )
@@ -32,37 +33,27 @@ func (p *Banner) Init() interface{} {
 }
 
 func (p *Banner) Fields(ctx *builder.Context) []interface{} {
-	field := &builder.AdminField{}
+	field := &adminresource.Field{}
 
 	// 获取分类
-	categorys, _ := (&model.BannerCategory{}).List()
+	categorys, _ := (&model.BannerCategory{}).Options()
 
 	return []interface{}{
 		field.ID("id", "ID"),
 
 		field.Text("title", "标题").
-			SetRules(
-				[]string{
-					"required",
-				},
-				map[string]string{
-					"required": "标题必须填写",
-				},
-			),
+			SetRules([]*rule.Rule{
+				rule.Required(true, "标题必须填写"),
+			}),
 
 		field.Image("cover_id", "图片").
 			OnlyOnForms(),
 
 		field.Select("category_id", "广告位").
 			SetOptions(categorys).
-			SetRules(
-				[]string{
-					"required",
-				},
-				map[string]string{
-					"required": "请选择广告位",
-				},
-			).
+			SetRules([]*rule.Rule{
+				rule.Required(true, "请选择广告位"),
+			}).
 			OnlyOnForms(),
 
 		field.Number("sort", "排序").

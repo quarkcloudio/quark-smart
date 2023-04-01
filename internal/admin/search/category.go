@@ -2,13 +2,13 @@ package search
 
 import (
 	"github.com/quarkcms/quark-go/pkg/builder"
-	"github.com/quarkcms/quark-go/pkg/builder/searches"
+	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource/searches"
 	"github.com/quarkcms/quark-smart/internal/model"
 	"gorm.io/gorm"
 )
 
 type Category struct {
-	searches.Select
+	searches.TreeSelect
 }
 
 // 初始化
@@ -30,8 +30,8 @@ func (p *Category) Apply(ctx *builder.Context, query *gorm.DB, value interface{}
 }
 
 // 属性
-func (p *Category) Options(ctx *builder.Context) map[interface{}]interface{} {
-	options, _ := (&model.Category{}).Options()
+func (p *Category) Options(ctx *builder.Context) interface{} {
+	options, _ := (&model.Category{}).TreeSelect(true)
 
 	return options
 }

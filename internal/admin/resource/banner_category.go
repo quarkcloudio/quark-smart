@@ -5,6 +5,7 @@ import (
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
+	"github.com/quarkcms/quark-go/pkg/component/admin/form/rule"
 	"github.com/quarkcms/quark-smart/internal/model"
 )
 
@@ -31,30 +32,20 @@ func (p *BannerCategory) Init() interface{} {
 }
 
 func (p *BannerCategory) Fields(ctx *builder.Context) []interface{} {
-	field := &builder.AdminField{}
+	field := &adminresource.Field{}
 
 	return []interface{}{
 		field.ID("id", "ID"),
 
 		field.Text("title", "标题").
-			SetRules(
-				[]string{
-					"required",
-				},
-				map[string]string{
-					"required": "标题必须填写",
-				},
-			),
+			SetRules([]*rule.Rule{
+				rule.Required(true, "标题必须填写"),
+			}),
 
 		field.Text("name", "缩略名").
-			SetRules(
-				[]string{
-					"required",
-				},
-				map[string]string{
-					"required": "缩略名必须填写",
-				},
-			),
+			SetRules([]*rule.Rule{
+				rule.Required(true, "缩略名必须填写"),
+			}),
 
 		field.Number("width", "宽度").SetDefault(0),
 

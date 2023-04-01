@@ -4,8 +4,8 @@ import (
 	"time"
 
 	appmodel "github.com/quarkcms/quark-go/pkg/app/model"
+	"github.com/quarkcms/quark-go/pkg/component/admin/form/fields/treeselect"
 	"github.com/quarkcms/quark-go/pkg/dal/db"
-	"github.com/quarkcms/quark-go/pkg/lister"
 	"gorm.io/gorm"
 )
 
@@ -51,53 +51,48 @@ func (m *Category) Seeder() {
 	db.Client.Create(&seeders)
 }
 
-// 获取SelectTree组件的数据
-func (m *Category) SelectTreeData(root bool) (list []interface{}, Error error) {
-	categories := []Category{}
-	err := db.Client.Where("status = ?", 1).Select("title", "id", "pid").Find(&categories).Error
-	if err != nil {
-		return list, err
-	}
+// 获取TreeSelect组件数据
+func (model *Category) TreeSelect(root bool) (list []*treeselect.TreeData, Error error) {
 
-	treeList := []map[string]interface{}{}
-
-	// 是否有跟节点
+	// 是否有根节点
 	if root {
-		list = append(list, map[string]interface{}{
-			"label": "根节点",
-			"value": 0,
+		list = append(list, &treeselect.TreeData{
+			Title: "根节点",
+			Value: 0,
 		})
 	}
 
-	for _, v := range categories {
-		item := map[string]interface{}{
-			"value": v.Id,
-			"pid":   v.Pid,
-			"label": v.Title,
-		}
-		treeList = append(treeList, item)
-	}
+	list = append(list, model.FindTreeSelectNode(0)...)
 
-	tree, err := lister.ListToTree(treeList, "value", "pid", "children", 0)
-	if err != nil {
-		return list, err
-	}
-	list = append(list, tree...)
-
-	return list, err
+	return list, nil
 }
 
-// 获取搜索框Select的属性
-func (model *Category) Options() (list map[interface{}]interface{}, Error error) {
-	options := map[interface{}]interface{}{}
-	getList := []Category{}
-	err := db.Client.Find(&getList).Error
-	if err != nil {
-		return options, err
-	}
-	for _, v := range getList {
-		options[v.Id] = v.Title
+// 递归获取SelectTree组件数据
+func (model *Category) FindTreeSelectNode(pid int) (list []*treeselect.TreeData) {
+	categories := []Category{}
+	db.Client.
+		Where("pid = ?", pid).
+		Order("sort asc,id asc").
+		Select("title", "id", "pid").
+		Find(&categories)
+
+	if len(categories) == 0 {
+		return list
 	}
 
-	return options, nil
+	for _, v := range categories {
+		item := &treeselect.TreeData{
+			Value: v.Id,
+			Title: v.Title,
+		}
+
+		children := model.FindTreeSelectNode(v.Id)
+		if len(children) > 0 {
+			item.Children = children
+		}
+
+		list = append(list, item)
+	}
+
+	return list
 }

@@ -4,6 +4,7 @@ import (
 	"time"
 
 	appmodel "github.com/quarkcms/quark-go/pkg/app/model"
+	"github.com/quarkcms/quark-go/pkg/component/admin/form/fields/selectfield"
 	"github.com/quarkcms/quark-go/pkg/dal/db"
 	"gorm.io/gorm"
 )
@@ -44,34 +45,19 @@ func (m *BannerCategory) Seeder() {
 }
 
 // 获取列表
-func (model *BannerCategory) List() (list []map[string]interface{}, Error error) {
-	getList := []BannerCategory{}
-	err := db.Client.Find(&getList).Error
-	if err != nil {
-		return list, err
-	}
-
-	for _, v := range getList {
-		option := map[string]interface{}{
-			"label": v.Title,
-			"value": v.Id,
-		}
-		list = append(list, option)
-	}
-
-	return list, nil
-}
-
-// 获取搜索框Select的属性
-func (model *BannerCategory) Options() (list map[interface{}]interface{}, Error error) {
-	options := map[interface{}]interface{}{}
+func (model *BannerCategory) Options() (options []*selectfield.Option, Error error) {
 	getList := []BannerCategory{}
 	err := db.Client.Find(&getList).Error
 	if err != nil {
 		return options, err
 	}
+
 	for _, v := range getList {
-		options[v.Id] = v.Title
+		option := &selectfield.Option{
+			Label: v.Title,
+			Value: v.Id,
+		}
+		options = append(options, option)
 	}
 
 	return options, nil

@@ -7,6 +7,9 @@ import (
 	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
 	"github.com/quarkcms/quark-go/pkg/builder"
 	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
+	"github.com/quarkcms/quark-go/pkg/component/admin/form/fields/checkbox"
+	"github.com/quarkcms/quark-go/pkg/component/admin/form/fields/radio"
+	"github.com/quarkcms/quark-go/pkg/component/admin/form/rule"
 	"github.com/quarkcms/quark-go/pkg/component/admin/tabs"
 	"github.com/quarkcms/quark-smart/internal/admin/search"
 	"github.com/quarkcms/quark-smart/internal/model"
@@ -62,10 +65,10 @@ func (p *Article) Fields(ctx *builder.Context) []interface{} {
 
 // 基础字段
 func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
-	field := &builder.AdminField{}
+	field := &adminresource.Field{}
 
 	// 获取分类
-	categorys, _ := (&model.Category{}).SelectTreeData(false)
+	categorys, _ := (&model.Category{}).TreeSelect(false)
 
 	return []interface{}{
 		field.ID("id", "ID"),
@@ -73,24 +76,14 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 		field.Hidden("adminid", "AdminID"),
 
 		field.Text("title", "标题").
-			SetRules(
-				[]string{
-					"required",
-				},
-				map[string]string{
-					"required": "标题必须填写",
-				},
-			),
+			SetRules([]*rule.Rule{
+				rule.Required(true, "标题必须填写"),
+			}),
 
 		field.TextArea("description", "描述").
-			SetRules(
-				[]string{
-					"max:200",
-				},
-				map[string]string{
-					"max": "描述不能超过200个字符",
-				},
-			).
+			SetRules([]*rule.Rule{
+				rule.Max(200, "描述不能超过200个字符"),
+			}).
 			OnlyOnForms(),
 
 		field.Text("author", "作者"),
@@ -102,18 +95,18 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 			OnlyOnForms(),
 
 		field.Checkbox("position", "推荐位").
-			SetOptions([]map[string]interface{}{
-				{"label": "首页推荐", "value": 1},
-				{"label": "频道推荐", "value": 2},
-				{"label": "列表推荐", "value": 3},
-				{"label": "详情推荐", "value": 4},
+			SetOptions([]*checkbox.Option{
+				{Value: 1, Label: "首页推荐"},
+				{Value: 2, Label: "频道推荐"},
+				{Value: 3, Label: "列表推荐"},
+				{Value: 4, Label: "详情推荐"},
 			}),
 
 		field.Radio("show_type", "展现形式").
-			SetOptions([]map[string]interface{}{
-				{"label": "无图", "value": 1},
-				{"label": "单图", "value": 2},
-				{"label": "多图", "value": 3},
+			SetOptions([]*radio.Option{
+				{Value: 1, Label: "无图"},
+				{Value: 2, Label: "单图"},
+				{Value: 3, Label: "多图"},
 			}).
 			SetWhen(2, func() interface{} {
 				return []interface{}{
@@ -132,16 +125,11 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 			}).
 			OnlyOnForms(),
 
-		field.Select("category_id", "分类目录").
-			SetOptions(categorys).
-			SetRules(
-				[]string{
-					"required",
-				},
-				map[string]string{
-					"required": "请选择分类目录",
-				},
-			).
+		field.TreeSelect("category_id", "分类目录").
+			SetData(categorys).
+			SetRules([]*rule.Rule{
+				rule.Required(true, "请选择分类目录"),
+			}).
 			OnlyOnForms(),
 
 		field.Editor("content", "内容").OnlyOnForms(),
@@ -157,7 +145,7 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 
 // 扩展字段
 func (p *Article) ExtendFields(ctx *builder.Context) []interface{} {
-	field := &builder.AdminField{}
+	field := &adminresource.Field{}
 
 	return []interface{}{
 		field.Text("name", "缩略名").

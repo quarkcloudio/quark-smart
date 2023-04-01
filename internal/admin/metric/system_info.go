@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/quarkcms/quark-go/pkg/builder/metrics"
+	"github.com/quarkcms/quark-go/pkg/builder/template/admindashboard/metrics"
 	"github.com/quarkcms/quark-go/pkg/component/admin/descriptions"
 	"github.com/quarkcms/quark-smart/config"
 	"github.com/shirou/gopsutil/cpu"
@@ -14,7 +14,7 @@ import (
 )
 
 type SystemInfo struct {
-	metrics.AdminDescriptions
+	metrics.Descriptions
 }
 
 // 初始化

@@ -2,7 +2,7 @@ package search
 
 import (
 	"github.com/quarkcms/quark-go/pkg/builder"
-	"github.com/quarkcms/quark-go/pkg/builder/searches"
+	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource/searches"
 	"github.com/quarkcms/quark-smart/internal/model"
 	"gorm.io/gorm"
 )
@@ -31,7 +31,7 @@ func (p *BannerCategory) Apply(ctx *builder.Context, query *gorm.DB, value inter
 }
 
 // 属性
-func (p *BannerCategory) Options(ctx *builder.Context) map[interface{}]interface{} {
+func (p *BannerCategory) Options(ctx *builder.Context) interface{} {
 	options, _ := (&model.BannerCategory{}).Options()
 
 	return options
