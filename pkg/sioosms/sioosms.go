@@ -1,4 +1,4 @@
-package aliyunsms
+package sioosms
 
 import (
 	"crypto/md5"
