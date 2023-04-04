@@ -2,6 +2,8 @@ package main
 
 import (
 	appproviders "github.com/quarkcms/quark-go/pkg/app/handler/admin"
+	mixproviders "github.com/quarkcms/quark-go/pkg/app/handler/mix"
+	toolproviders "github.com/quarkcms/quark-go/pkg/app/handler/tool"
 	appinstall "github.com/quarkcms/quark-go/pkg/app/install"
 	appmiddleware "github.com/quarkcms/quark-go/pkg/app/middleware"
 	"github.com/quarkcms/quark-go/pkg/builder"
@@ -15,6 +17,9 @@ import (
 )
 
 func main() {
+
+	// 服务
+	var providers []interface{}
 
 	// 配置信息
 	var (
@@ -30,6 +35,18 @@ func main() {
 	// 数据库配置信息
 	dsn := dbUser + ":" + dbPassword + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName + "?charset=" + dbCharset + "&parseTime=True&loc=Local"
 
+	// 加载后台服务
+	providers = append(providers, appproviders.Providers...)
+
+	// 加载自定义后台服务
+	providers = append(providers, admin.Provider...)
+
+	// 加载Mix服务
+	providers = append(providers, mixproviders.Providers...)
+
+	// 加载工具服务
+	providers = append(providers, toolproviders.Providers...)
+
 	// 配置资源
 	getConfig := &builder.Config{
 		AppKey: appKey,
@@ -37,7 +54,7 @@ func main() {
 			Dialector: mysql.Open(dsn),
 			Opts:      &gorm.Config{},
 		},
-		Providers: append(appproviders.Providers, admin.Provider...),
+		Providers: providers,
 		AdminLayout: &builder.AdminLayout{
 			Title:        config.Admin.Title,
 			Logo:         config.Admin.Logo,
