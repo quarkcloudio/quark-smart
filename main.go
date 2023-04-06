@@ -1,6 +1,10 @@
 package main
 
 import (
+	"io"
+	"os"
+
+	echomiddleware "github.com/labstack/echo/v4/middleware"
 	appproviders "github.com/quarkcms/quark-go/pkg/app/handler/admin"
 	mixproviders "github.com/quarkcms/quark-go/pkg/app/handler/mix"
 	toolproviders "github.com/quarkcms/quark-go/pkg/app/handler/tool"
@@ -89,6 +93,21 @@ func main() {
 
 	// 中间件
 	b.Use((&middleware.AppMiddleware{}).Handle)
+
+	// 日志文件位置
+	f, _ := os.OpenFile("./app.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0644)
+
+	// 开启Debug模式
+	b.Echo().Debug = true
+
+	// 记录日志
+	b.Echo().Logger.SetOutput(io.MultiWriter(f, os.Stdout))
+
+	// 日志中间件
+	b.Echo().Use(echomiddleware.Logger())
+
+	// 崩溃后自动恢复
+	b.Echo().Use(echomiddleware.Recover())
 
 	// 注册路由
 	router.Register(b)
