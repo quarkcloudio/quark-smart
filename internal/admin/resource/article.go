@@ -123,6 +123,7 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 						OnlyOnForms(),
 				}
 			}).
+			SetDefault(1).
 			OnlyOnForms(),
 
 		field.TreeSelect("category_id", "分类目录").
@@ -134,7 +135,7 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 
 		field.Editor("content", "内容").OnlyOnForms(),
 
-		field.Datetime("created_at", "发布时间"),
+		field.Datetime("created_at", "发布时间").SetDefault(time.Now().Format("2006-01-02 15:04:05")),
 
 		field.Switch("status", "状态").
 			SetTrueValue("正常").
@@ -167,17 +168,19 @@ func (p *Article) ExtendFields(ctx *builder.Context) []interface{} {
 			OnlyOnForms(),
 
 		field.Switch("comment_status", "允许评论").
+			SetEditable(true).
 			SetTrueValue("正常").
 			SetFalseValue("禁用").
-			SetEditable(true),
+			SetDefault(true),
 
 		field.Datetime("created_at", "发布时间").
 			OnlyOnForms(),
 
 		field.Switch("status", "状态").
+			SetEditable(true).
 			SetTrueValue("正常").
 			SetFalseValue("禁用").
-			SetEditable(true),
+			SetDefault(true),
 	}
 }
 
@@ -207,20 +210,4 @@ func (p *Article) Actions(ctx *builder.Context) []interface{} {
 		(&actions.FormBack{}).Init(),
 		(&actions.FormExtraBack{}).Init(),
 	}
-}
-
-// 创建页面显示前回调
-func (p *Article) BeforeCreating(ctx *builder.Context) map[string]interface{} {
-
-	// 表单初始化数据
-	data := map[string]interface{}{
-		"level":      0,
-		"view":       0,
-		"show_type":  1,
-		"comment":    0,
-		"created_at": time.Now().Format("2006-01-02 15:04:05"),
-		"status":     true,
-	}
-
-	return data
 }
