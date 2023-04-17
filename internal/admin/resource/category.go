@@ -86,12 +86,12 @@ func (p *Category) BaseFields(ctx *builder.Context) []interface{} {
 			OnlyOnForms(),
 
 		field.Number("sort", "排序").
-			SetEditable(true).
 			SetEditable(true),
 
 		field.Switch("status", "状态").
 			SetTrueValue("正常").
 			SetFalseValue("禁用").
+			SetDefault(true).
 			OnlyOnForms(),
 	}
 }
@@ -115,12 +115,14 @@ func (p *Category) ExtendFields(ctx *builder.Context) []interface{} {
 			OnlyOnForms(),
 
 		field.Number("page_num", "分页数量").
-			SetEditable(true),
+			SetEditable(true).
+			SetDefault(10),
 
 		field.Switch("status", "状态").
+			SetEditable(true).
 			SetTrueValue("正常").
 			SetFalseValue("禁用").
-			SetEditable(true),
+			SetDefault(true),
 	}
 }
 
@@ -154,7 +156,7 @@ func (p *Category) Actions(ctx *builder.Context) []interface{} {
 // 列表页面显示前回调
 func (p *Category) BeforeIndexShowing(ctx *builder.Context, list []map[string]interface{}) []interface{} {
 	data := ctx.AllQuerys()
-	if search, ok := data["search"].(map[string]interface{}); ok == true && search != nil {
+	if search, ok := data["search"].(map[string]interface{}); ok && search != nil {
 		result := []interface{}{}
 		for _, v := range list {
 			result = append(result, v)
@@ -167,18 +169,4 @@ func (p *Category) BeforeIndexShowing(ctx *builder.Context, list []map[string]in
 	tree, _ := lister.ListToTree(list, "id", "pid", "children", 0)
 
 	return tree
-}
-
-// 创建页面显示前回调
-func (p *Category) BeforeCreating(ctx *builder.Context) map[string]interface{} {
-
-	// 表单初始化数据
-	data := map[string]interface{}{
-		"pid":      0,
-		"sort":     0,
-		"status":   true,
-		"page_num": 10,
-	}
-
-	return data
 }

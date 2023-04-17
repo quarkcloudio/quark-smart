@@ -103,7 +103,7 @@ func (p *Navigation) Actions(ctx *builder.Context) []interface{} {
 // 列表页面显示前回调
 func (p *Navigation) BeforeIndexShowing(ctx *builder.Context, list []map[string]interface{}) []interface{} {
 	data := ctx.AllQuerys()
-	if search, ok := data["search"].(map[string]interface{}); ok == true && search != nil {
+	if search, ok := data["search"].(map[string]interface{}); ok && search != nil {
 		result := []interface{}{}
 		for _, v := range list {
 			result = append(result, v)
