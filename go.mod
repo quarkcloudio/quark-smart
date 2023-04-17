@@ -10,7 +10,7 @@ require (
 	github.com/dchest/captcha v1.0.0
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/parnurzeal/gorequest v0.2.16
-	github.com/quarkcms/quark-go v1.2.5
+	github.com/quarkcms/quark-go v1.2.18
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	gorm.io/driver/mysql v1.4.5
 	gorm.io/gorm v1.24.5
@@ -28,6 +28,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.4.2 // indirect
+	github.com/xbmlz/gct v0.0.0-20220707064702-998631a80a6a // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
