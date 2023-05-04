@@ -1,9 +1,11 @@
 package main
 
 import (
+	"html/template"
 	"io"
 	"os"
 
+	"github.com/labstack/echo/v4"
 	echomiddleware "github.com/labstack/echo/v4/middleware"
 	appproviders "github.com/quarkcms/quark-go/pkg/app/handler/admin"
 	mixproviders "github.com/quarkcms/quark-go/pkg/app/handler/mix"
@@ -19,6 +21,22 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
+
+// TemplateRenderer is a custom html/template renderer for Echo framework
+type Template struct {
+	templates *template.Template
+}
+
+// Render renders a template document
+func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+
+	// Add global methods if data is a map
+	if viewContext, isMap := data.(map[string]interface{}); isMap {
+		viewContext["reverse"] = c.Echo().Reverse
+	}
+
+	return t.templates.ExecuteTemplate(w, name, data)
+}
 
 func main() {
 
@@ -99,6 +117,12 @@ func main() {
 
 	// 开启Debug模式
 	b.Echo().Debug = true
+
+	// 加载Html模板
+	renderer := &Template{
+		templates: template.Must(template.ParseGlob("web/template/*.html")),
+	}
+	b.Echo().Renderer = renderer
 
 	// 记录日志
 	b.Echo().Logger.SetOutput(io.MultiWriter(f, os.Stdout))

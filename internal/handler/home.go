@@ -7,7 +7,8 @@ type Home struct{}
 
 // 首页
 func (p *Home) Index(ctx *builder.Context) error {
-	ctx.Write([]byte("Hello World!"))
 
-	return nil
+	return ctx.Render(200, "index.html", map[string]interface{}{
+		"content": "Hello, world!",
+	})
 }
