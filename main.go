@@ -119,10 +119,9 @@ func main() {
 	b.Echo().Debug = true
 
 	// 加载Html模板
-	renderer := &Template{
+	b.Echo().Renderer = &Template{
 		templates: template.Must(template.ParseGlob("web/template/*.html")),
 	}
-	b.Echo().Renderer = renderer
 
 	// 记录日志
 	b.Echo().Logger.SetOutput(io.MultiWriter(f, os.Stdout))
