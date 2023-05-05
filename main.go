@@ -22,12 +22,12 @@ import (
 	"gorm.io/gorm"
 )
 
-// TemplateRenderer is a custom html/template renderer for Echo framework
+// 模板结构体
 type Template struct {
 	templates *template.Template
 }
 
-// Render renders a template document
+// 模板渲染方法
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 
 	// Add global methods if data is a map
