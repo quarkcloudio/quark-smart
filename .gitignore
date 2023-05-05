@@ -24,7 +24,7 @@ vendor/
 tmp/
 
 # 文件存储目录
-website/storage
+/web/app/storage
 
 # 安装锁定文件
 install.lock

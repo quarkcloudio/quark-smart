@@ -97,8 +97,11 @@ func main() {
 	// 实例化对象
 	b := builder.New(getConfig)
 
+	// WEB根目录
+	b.Static("/", "./web/app")
+
 	// 静态文件目录
-	b.Static("/", "./website")
+	b.Static("/static/", "./web/static")
 
 	// 构建quarkgo基础数据库、拉取静态文件
 	appinstall.Handle()
