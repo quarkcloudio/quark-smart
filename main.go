@@ -115,9 +115,6 @@ func main() {
 	// 中间件
 	b.Use((&middleware.AppMiddleware{}).Handle)
 
-	// 日志文件位置
-	f, _ := os.OpenFile("./app.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0644)
-
 	// 开启Debug模式
 	b.Echo().Debug = true
 
@@ -125,6 +122,9 @@ func main() {
 	b.Echo().Renderer = &Template{
 		templates: template.Must(template.ParseGlob("web/template/*.html")),
 	}
+
+	// 日志文件位置
+	f, _ := os.OpenFile("./app.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0644)
 
 	// 记录日志
 	b.Echo().Logger.SetOutput(io.MultiWriter(f, os.Stdout))
