@@ -34,7 +34,7 @@ func (m *Banner) Seeder() {
 
 	// 创建菜单
 	menuSeeders := []*appmodel.Menu{
-		{Id: 25, Name: "广告列表", GuardName: "admin", Icon: "", Type: "engine", Pid: 23, Sort: 0, Path: "/api/admin/banner/index", Show: 1, Status: 1},
+		{Id: 25, Name: "广告列表", GuardName: "admin", Icon: "", Type: 2, Pid: 23, Sort: 0, Path: "/api/admin/banner/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
 	}
 	db.Client.Create(&menuSeeders)
 }

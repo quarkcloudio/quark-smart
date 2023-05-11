@@ -40,7 +40,7 @@ func (m *Category) Seeder() {
 
 	// 创建菜单
 	menuSeeders := []*appmodel.Menu{
-		{Id: 19, Name: "分类列表", GuardName: "admin", Icon: "", Type: "engine", Pid: 18, Sort: 0, Path: "/api/admin/category/index", Show: 1, Status: 1},
+		{Id: 19, Name: "分类列表", GuardName: "admin", Icon: "", Type: 2, Pid: 18, Sort: 0, Path: "/api/admin/category/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
 	}
 	db.Client.Create(&menuSeeders)
 
