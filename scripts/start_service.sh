@@ -1,6 +1,6 @@
 #!/bin/sh
-PROJECT_PATH=./
-PROJECT_NAME=main
+PROJECT_PATH=$(cd $(dirname $0)|cd ..|pwd)
+PROJECT_NAME=/main
 
 # stop process
 tpid=`ps -ef|grep $PROJECT_PATH$PROJECT_NAME|grep -v grep|grep -v kill|awk '{print $2}'`
@@ -27,7 +27,7 @@ if [[ ${tpid} ]]; then
 else
     echo 'App is NOT running.'
 
-    nohup $PROJECT_PATH$PROJECT_NAME &
+    nohup $PROJECT_PATH$PROJECT_NAME >/dev/null 2>&1 &
     
     echo Start Success!
 fi
