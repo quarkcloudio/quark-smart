@@ -75,6 +75,8 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 
 		field.Hidden("adminid", "AdminID"),
 
+		field.Hidden("cover_ids", "封面图"),
+
 		field.Text("title", "标题").
 			SetRules([]*rule.Rule{
 				rule.Required(true, "标题必须填写"),
@@ -135,7 +137,8 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 
 		field.Editor("content", "内容").OnlyOnForms(),
 
-		field.Datetime("created_at", "发布时间").SetDefault(time.Now().Format("2006-01-02 15:04:05")),
+		field.Datetime("created_at", "发布时间").
+			SetDefault(time.Now().Format("2006-01-02 15:04:05")),
 
 		field.Switch("status", "状态").
 			SetTrueValue("正常").
@@ -210,4 +213,30 @@ func (p *Article) Actions(ctx *builder.Context) []interface{} {
 		(&actions.FormBack{}).Init(),
 		(&actions.FormExtraBack{}).Init(),
 	}
+}
+
+// 编辑页面显示前回调
+func (p *Article) BeforeEditing(request *builder.Context, data map[string]interface{}) map[string]interface{} {
+	if data["show_type"] == 2 {
+		data["single_cover_ids"] = data["cover_ids"]
+	}
+
+	if data["show_type"] == 3 {
+		data["multiple_cover_ids"] = data["cover_ids"]
+	}
+
+	return data
+}
+
+// 保存数据前回调
+func (p *Article) BeforeSaving(ctx *builder.Context, submitData map[string]interface{}) (map[string]interface{}, error) {
+	if int(submitData["show_type"].(float64)) == 2 {
+		submitData["cover_ids"] = submitData["single_cover_ids"]
+	}
+
+	if int(submitData["show_type"].(float64)) == 3 {
+		submitData["cover_ids"] = submitData["multiple_cover_ids"]
+	}
+
+	return submitData, nil
 }
