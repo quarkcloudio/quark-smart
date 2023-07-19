@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/quarkcms/quark-go/pkg/builder/template/admindashboard/metrics"
-	"github.com/quarkcms/quark-go/pkg/component/admin/descriptions"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/descriptions"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/template/dashboard/metrics"
 	"github.com/quarkcms/quark-smart/config"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
@@ -27,7 +27,6 @@ func (p *SystemInfo) Init() *SystemInfo {
 
 // 计算数值
 func (p *SystemInfo) Calculate() *descriptions.Component {
-
 	field := &descriptions.Field{}
 	memory, _ := mem.VirtualMemory()
 	cpuPercent, _ := cpu.Percent(time.Second, false)

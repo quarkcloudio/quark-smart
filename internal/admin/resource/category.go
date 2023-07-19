@@ -1,18 +1,18 @@
 package resource
 
 import (
-	"github.com/quarkcms/quark-go/pkg/app/handler/admin/actions"
-	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
-	"github.com/quarkcms/quark-go/pkg/builder"
-	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
-	"github.com/quarkcms/quark-go/pkg/component/admin/form/rule"
-	"github.com/quarkcms/quark-go/pkg/component/admin/tabs"
-	"github.com/quarkcms/quark-go/pkg/lister"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/form/rule"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/tabs"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/service/actions"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/service/searches"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/template/resource"
+	"github.com/quarkcms/quark-go/v2/pkg/builder"
+	"github.com/quarkcms/quark-go/v2/pkg/lister"
 	"github.com/quarkcms/quark-smart/internal/model"
 )
 
 type Category struct {
-	adminresource.Template
+	resource.Template
 }
 
 // 初始化
@@ -58,7 +58,7 @@ func (p *Category) Fields(ctx *builder.Context) []interface{} {
 
 // 基础字段
 func (p *Category) BaseFields(ctx *builder.Context) []interface{} {
-	field := &adminresource.Field{}
+	field := &resource.Field{}
 
 	// 获取分类
 	categorys, _ := (&model.Category{}).TreeSelect(true)
@@ -98,7 +98,7 @@ func (p *Category) BaseFields(ctx *builder.Context) []interface{} {
 
 // 扩展字段
 func (p *Category) ExtendFields(ctx *builder.Context) []interface{} {
-	field := &adminresource.Field{}
+	field := &resource.Field{}
 
 	return []interface{}{
 		field.Image("cover_id", "封面图").

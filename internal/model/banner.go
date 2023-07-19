@@ -3,8 +3,8 @@ package model
 import (
 	"time"
 
-	appmodel "github.com/quarkcms/quark-go/pkg/app/model"
-	"github.com/quarkcms/quark-go/pkg/dal/db"
+	appmodel "github.com/quarkcms/quark-go/v2/pkg/app/admin/model"
+	"github.com/quarkcms/quark-go/v2/pkg/dal/db"
 	"gorm.io/gorm"
 )
 

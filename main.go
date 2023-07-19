@@ -7,12 +7,11 @@ import (
 
 	"github.com/labstack/echo/v4"
 	echomiddleware "github.com/labstack/echo/v4/middleware"
-	appproviders "github.com/quarkcms/quark-go/pkg/app/handler/admin"
-	mixproviders "github.com/quarkcms/quark-go/pkg/app/handler/mix"
-	toolproviders "github.com/quarkcms/quark-go/pkg/app/handler/tool"
-	appinstall "github.com/quarkcms/quark-go/pkg/app/install"
-	appmiddleware "github.com/quarkcms/quark-go/pkg/app/middleware"
-	"github.com/quarkcms/quark-go/pkg/builder"
+	appinstall "github.com/quarkcms/quark-go/v2/pkg/app/admin/install"
+	appmiddleware "github.com/quarkcms/quark-go/v2/pkg/app/admin/middleware"
+	appservice "github.com/quarkcms/quark-go/v2/pkg/app/admin/service"
+	toolservice "github.com/quarkcms/quark-go/v2/pkg/app/tool/service"
+	"github.com/quarkcms/quark-go/v2/pkg/builder"
 	"github.com/quarkcms/quark-smart/config"
 	"github.com/quarkcms/quark-smart/database"
 	"github.com/quarkcms/quark-smart/internal/admin"
@@ -58,16 +57,13 @@ func main() {
 	dsn := dbUser + ":" + dbPassword + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName + "?charset=" + dbCharset + "&parseTime=True&loc=Local"
 
 	// 加载后台服务
-	providers = append(providers, appproviders.Providers...)
+	providers = append(providers, appservice.Providers...)
 
 	// 加载自定义后台服务
 	providers = append(providers, admin.Provider...)
 
-	// 加载Mix服务
-	providers = append(providers, mixproviders.Providers...)
-
 	// 加载工具服务
-	providers = append(providers, toolproviders.Providers...)
+	providers = append(providers, toolservice.Providers...)
 
 	// 配置资源
 	getConfig := &builder.Config{

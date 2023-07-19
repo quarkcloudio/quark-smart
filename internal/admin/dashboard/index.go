@@ -1,13 +1,13 @@
 package dashboard
 
 import (
-	"github.com/quarkcms/quark-go/pkg/builder"
-	"github.com/quarkcms/quark-go/pkg/builder/template/admindashboard"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/template/dashboard"
+	"github.com/quarkcms/quark-go/v2/pkg/builder"
 	"github.com/quarkcms/quark-smart/internal/admin/metric"
 )
 
 type Index struct {
-	admindashboard.Template
+	dashboard.Template
 }
 
 // 初始化

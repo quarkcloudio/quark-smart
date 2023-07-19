@@ -3,9 +3,9 @@ package model
 import (
 	"time"
 
-	appmodel "github.com/quarkcms/quark-go/pkg/app/model"
-	"github.com/quarkcms/quark-go/pkg/component/admin/form/fields/treeselect"
-	"github.com/quarkcms/quark-go/pkg/dal/db"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/form/fields/treeselect"
+	appmodel "github.com/quarkcms/quark-go/v2/pkg/app/admin/model"
+	"github.com/quarkcms/quark-go/v2/pkg/dal/db"
 	"gorm.io/gorm"
 )
 

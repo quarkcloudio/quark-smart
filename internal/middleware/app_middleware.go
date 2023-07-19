@@ -1,8 +1,7 @@
 package middleware
 
 import (
-	"github.com/quarkcms/quark-go/pkg/builder"
-	"github.com/quarkcms/quark-go/pkg/msg"
+	"github.com/quarkcms/quark-go/v2/pkg/builder"
 	"github.com/quarkcms/quark-smart/config"
 )
 
@@ -34,7 +33,7 @@ func (am *AppMiddleware) Handle(ctx *builder.Context) error {
 			}
 		}
 		if isForbiddenRoute {
-			return ctx.JSON(200, msg.Error("演示站点禁止了此操作！", ""))
+			return ctx.JSON(200, builder.Error("演示站点禁止了此操作！"))
 		}
 	}
 

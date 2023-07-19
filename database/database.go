@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/quarkcms/quark-go/pkg/dal/db"
+	"github.com/quarkcms/quark-go/v2/pkg/dal/db"
 	"github.com/quarkcms/quark-smart/internal/model"
 )
 

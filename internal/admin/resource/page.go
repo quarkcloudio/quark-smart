@@ -1,18 +1,18 @@
 package resource
 
 import (
-	"github.com/quarkcms/quark-go/pkg/app/handler/admin/actions"
-	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
-	"github.com/quarkcms/quark-go/pkg/builder"
-	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
-	"github.com/quarkcms/quark-go/pkg/component/admin/form/rule"
-	"github.com/quarkcms/quark-go/pkg/lister"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/form/rule"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/service/actions"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/service/searches"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/template/resource"
+	"github.com/quarkcms/quark-go/v2/pkg/builder"
+	"github.com/quarkcms/quark-go/v2/pkg/lister"
 	"github.com/quarkcms/quark-smart/internal/model"
 	"gorm.io/gorm"
 )
 
 type Page struct {
-	adminresource.Template
+	resource.Template
 }
 
 // 初始化
@@ -43,7 +43,7 @@ func (p *Page) Query(ctx *builder.Context, query *gorm.DB) *gorm.DB {
 
 // 字段
 func (p *Page) Fields(ctx *builder.Context) []interface{} {
-	field := &adminresource.Field{}
+	field := &resource.Field{}
 
 	// 获取分类
 	pages, _ := (&model.Post{}).TreeSelect(true)

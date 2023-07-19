@@ -1,10 +1,10 @@
 package metric
 
 import (
-	"github.com/quarkcms/quark-go/pkg/app/model"
-	"github.com/quarkcms/quark-go/pkg/builder/template/admindashboard/metrics"
-	"github.com/quarkcms/quark-go/pkg/component/admin/statistic"
-	"github.com/quarkcms/quark-go/pkg/dal/db"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/statistic"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/model"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/template/dashboard/metrics"
+	"github.com/quarkcms/quark-go/v2/pkg/dal/db"
 )
 
 type TotalFile struct {

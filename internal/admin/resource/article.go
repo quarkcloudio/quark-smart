@@ -3,21 +3,21 @@ package resource
 import (
 	"time"
 
-	"github.com/quarkcms/quark-go/pkg/app/handler/admin/actions"
-	"github.com/quarkcms/quark-go/pkg/app/handler/admin/searches"
-	"github.com/quarkcms/quark-go/pkg/builder"
-	"github.com/quarkcms/quark-go/pkg/builder/template/adminresource"
-	"github.com/quarkcms/quark-go/pkg/component/admin/form/fields/checkbox"
-	"github.com/quarkcms/quark-go/pkg/component/admin/form/fields/radio"
-	"github.com/quarkcms/quark-go/pkg/component/admin/form/rule"
-	"github.com/quarkcms/quark-go/pkg/component/admin/tabs"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/form/fields/checkbox"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/form/fields/radio"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/form/rule"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/tabs"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/service/actions"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/service/searches"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/template/resource"
+	"github.com/quarkcms/quark-go/v2/pkg/builder"
 	"github.com/quarkcms/quark-smart/internal/admin/search"
 	"github.com/quarkcms/quark-smart/internal/model"
 	"gorm.io/gorm"
 )
 
 type Article struct {
-	adminresource.Template
+	resource.Template
 }
 
 // 初始化
@@ -65,7 +65,7 @@ func (p *Article) Fields(ctx *builder.Context) []interface{} {
 
 // 基础字段
 func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
-	field := &adminresource.Field{}
+	field := &resource.Field{}
 
 	// 获取分类
 	categorys, _ := (&model.Category{}).TreeSelect(false)
@@ -149,7 +149,7 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 
 // 扩展字段
 func (p *Article) ExtendFields(ctx *builder.Context) []interface{} {
-	field := &adminresource.Field{}
+	field := &resource.Field{}
 
 	return []interface{}{
 		field.Text("name", "缩略名").
