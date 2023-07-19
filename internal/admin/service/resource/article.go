@@ -11,7 +11,7 @@ import (
 	"github.com/quarkcms/quark-go/v2/pkg/app/admin/service/searches"
 	"github.com/quarkcms/quark-go/v2/pkg/app/admin/template/resource"
 	"github.com/quarkcms/quark-go/v2/pkg/builder"
-	"github.com/quarkcms/quark-smart/internal/admin/search"
+	"github.com/quarkcms/quark-smart/internal/admin/service/search"
 	"github.com/quarkcms/quark-smart/internal/model"
 	"gorm.io/gorm"
 )

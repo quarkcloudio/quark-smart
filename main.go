@@ -7,14 +7,14 @@ import (
 
 	"github.com/labstack/echo/v4"
 	echomiddleware "github.com/labstack/echo/v4/middleware"
-	appinstall "github.com/quarkcms/quark-go/v2/pkg/app/admin/install"
-	appmiddleware "github.com/quarkcms/quark-go/v2/pkg/app/admin/middleware"
-	appservice "github.com/quarkcms/quark-go/v2/pkg/app/admin/service"
+	admininstall "github.com/quarkcms/quark-go/v2/pkg/app/admin/install"
+	adminmiddleware "github.com/quarkcms/quark-go/v2/pkg/app/admin/middleware"
+	adminservice "github.com/quarkcms/quark-go/v2/pkg/app/admin/service"
 	toolservice "github.com/quarkcms/quark-go/v2/pkg/app/tool/service"
 	"github.com/quarkcms/quark-go/v2/pkg/builder"
 	"github.com/quarkcms/quark-smart/config"
 	"github.com/quarkcms/quark-smart/database"
-	"github.com/quarkcms/quark-smart/internal/admin"
+	"github.com/quarkcms/quark-smart/internal/admin/service"
 	"github.com/quarkcms/quark-smart/internal/middleware"
 	"github.com/quarkcms/quark-smart/internal/router"
 	"gorm.io/driver/mysql"
@@ -57,10 +57,10 @@ func main() {
 	dsn := dbUser + ":" + dbPassword + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName + "?charset=" + dbCharset + "&parseTime=True&loc=Local"
 
 	// 加载后台服务
-	providers = append(providers, appservice.Providers...)
+	providers = append(providers, adminservice.Providers...)
 
 	// 加载自定义后台服务
-	providers = append(providers, admin.Provider...)
+	providers = append(providers, service.Provider...)
 
 	// 加载工具服务
 	providers = append(providers, toolservice.Providers...)
@@ -100,13 +100,13 @@ func main() {
 	b.Static("/static/", "./web/static")
 
 	// 构建quarkgo基础数据库、拉取静态文件
-	appinstall.Handle()
+	admininstall.Handle()
 
 	// 构建本项目数据库
 	database.Handle()
 
 	// 后台中间件
-	b.Use(appmiddleware.Handle)
+	b.Use(adminmiddleware.Handle)
 
 	// 中间件
 	b.Use((&middleware.AppMiddleware{}).Handle)

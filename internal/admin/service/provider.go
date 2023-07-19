@@ -1,9 +1,9 @@
-package admin
+package service
 
 import (
-	"github.com/quarkcms/quark-smart/internal/admin/dashboard"
-	"github.com/quarkcms/quark-smart/internal/admin/login"
-	"github.com/quarkcms/quark-smart/internal/admin/resource"
+	"github.com/quarkcms/quark-smart/internal/admin/service/dashboard"
+	"github.com/quarkcms/quark-smart/internal/admin/service/login"
+	"github.com/quarkcms/quark-smart/internal/admin/service/resource"
 )
 
 // 注册服务
