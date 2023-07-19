@@ -132,7 +132,8 @@ func main() {
 	b.Echo().Use(echomiddleware.Recover())
 
 	// 注册路由
-	router.Register(b)
+	router.AdminRegister(b)
+	router.WebRegister(b)
 
 	// 启动服务
 	b.Run(config.App.Host)

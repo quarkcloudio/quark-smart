@@ -5,7 +5,7 @@ import (
 	"github.com/quarkcms/quark-smart/internal/handler"
 )
 
-// 注册路由
-func Register(b *builder.Engine) {
+// 注册Web路由
+func WebRegister(b *builder.Engine) {
 	b.GET("/", (&handler.Home{}).Index)
 }
