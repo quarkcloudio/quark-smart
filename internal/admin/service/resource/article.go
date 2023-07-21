@@ -21,10 +21,7 @@ type Article struct {
 }
 
 // 初始化
-func (p *Article) Init() interface{} {
-
-	// 初始化模板
-	p.TemplateInit()
+func (p *Article) Init(ctx *builder.Context) interface{} {
 
 	// 标题
 	p.Title = "文章"

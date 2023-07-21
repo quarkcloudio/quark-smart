@@ -73,21 +73,6 @@ func main() {
 			Opts:      &gorm.Config{},
 		},
 		Providers: providers,
-		AdminLayout: &builder.AdminLayout{
-			Title:        config.Admin.Title,
-			Logo:         config.Admin.Logo,
-			Layout:       config.Admin.Layout,
-			SplitMenus:   config.Admin.SplitMenus,
-			ContentWidth: config.Admin.ContentWidth,
-			PrimaryColor: config.Admin.PrimaryColor,
-			FixedHeader:  config.Admin.FixedHeader,
-			FixSiderbar:  config.Admin.FixSiderbar,
-			IconfontUrl:  config.Admin.IconfontUrl,
-			Locale:       config.Admin.Locale,
-			SiderWidth:   config.Admin.SiderWidth,
-			Copyright:    config.Admin.Copyright,
-			Links:        config.Admin.Links,
-		},
 	}
 
 	// 实例化对象

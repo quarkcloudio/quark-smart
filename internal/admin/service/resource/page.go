@@ -16,10 +16,7 @@ type Page struct {
 }
 
 // 初始化
-func (p *Page) Init() interface{} {
-
-	// 初始化模板
-	p.TemplateInit()
+func (p *Page) Init(ctx *builder.Context) interface{} {
 
 	// 标题
 	p.Title = "单页"

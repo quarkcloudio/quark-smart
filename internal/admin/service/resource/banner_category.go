@@ -14,10 +14,7 @@ type BannerCategory struct {
 }
 
 // 初始化
-func (p *BannerCategory) Init() interface{} {
-
-	// 初始化模板
-	p.TemplateInit()
+func (p *BannerCategory) Init(ctx *builder.Context) interface{} {
 
 	// 标题
 	p.Title = "广告位"
