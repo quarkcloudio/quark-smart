@@ -116,8 +116,10 @@ func main() {
 	// 崩溃后自动恢复
 	b.Echo().Use(echomiddleware.Recover())
 
-	// 注册路由
+	// 注册后台路由
 	router.AdminRegister(b)
+
+	// 注册Web路由
 	router.WebRegister(b)
 
 	// 启动服务
