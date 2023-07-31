@@ -6,7 +6,7 @@ import (
 	"github.com/quarkcms/quark-go/v2/pkg/app/admin/service/searches"
 	"github.com/quarkcms/quark-go/v2/pkg/app/admin/template/resource"
 	"github.com/quarkcms/quark-go/v2/pkg/builder"
-	"github.com/quarkcms/quark-go/v2/pkg/lister"
+	"github.com/quarkcms/quark-go/v2/pkg/utils/lister"
 	"github.com/quarkcms/quark-smart/internal/model"
 )
 
@@ -74,9 +74,9 @@ func (p *Navigation) Fields(ctx *builder.Context) []interface{} {
 func (p *Navigation) Searches(ctx *builder.Context) []interface{} {
 
 	return []interface{}{
-		(&searches.Input{}).Init("title", "标题"),
-		(&searches.Status{}).Init(),
-		(&searches.DateTimeRange{}).Init("created_at", "创建时间"),
+		searches.Input("title", "标题"),
+		searches.Status(),
+		searches.DatetimeRange("created_at", "创建时间"),
 	}
 }
 
@@ -84,16 +84,16 @@ func (p *Navigation) Searches(ctx *builder.Context) []interface{} {
 func (p *Navigation) Actions(ctx *builder.Context) []interface{} {
 
 	return []interface{}{
-		(&actions.CreateLink{}).Init(p.Title),
-		(&actions.Delete{}).Init("批量删除"),
-		(&actions.Disable{}).Init("批量禁用"),
-		(&actions.Enable{}).Init("批量启用"),
-		(&actions.EditLink{}).Init("编辑"),
-		(&actions.Delete{}).Init("删除"),
-		(&actions.FormSubmit{}).Init(),
-		(&actions.FormReset{}).Init(),
-		(&actions.FormBack{}).Init(),
-		(&actions.FormExtraBack{}).Init(),
+		actions.CreateLink(),
+		actions.BatchDelete(),
+		actions.BatchDisable(),
+		actions.BatchEnable(),
+		actions.EditLink(),
+		actions.Delete(),
+		actions.FormSubmit(),
+		actions.FormReset(),
+		actions.FormBack(),
+		actions.FormExtraBack(),
 	}
 }
 
