@@ -24,7 +24,7 @@ func (p *Navigation) Init(ctx *builder.Context) interface{} {
 	p.Model = &model.Navigation{}
 
 	// 默认排序
-	p.IndexOrder = "sort asc"
+	p.IndexQueryOrder = "sort asc"
 
 	// 分页
 	p.PerPage = false

@@ -25,7 +25,7 @@ func (p *Page) Init(ctx *builder.Context) interface{} {
 	p.Model = &model.Post{}
 
 	// 默认排序
-	p.IndexOrder = "id asc"
+	p.IndexQueryOrder = "id asc"
 
 	// 分页
 	p.PerPage = false

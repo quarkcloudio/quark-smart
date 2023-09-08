@@ -25,7 +25,7 @@ func (p *Category) Init(ctx *builder.Context) interface{} {
 	p.Model = &model.Category{}
 
 	// 默认排序
-	p.IndexOrder = "sort asc"
+	p.IndexQueryOrder = "sort asc"
 
 	// 分页
 	p.PerPage = false
