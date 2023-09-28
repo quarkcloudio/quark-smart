@@ -10,6 +10,7 @@ import (
 	admininstall "github.com/quarkcms/quark-go/v2/pkg/app/admin/install"
 	adminmiddleware "github.com/quarkcms/quark-go/v2/pkg/app/admin/middleware"
 	adminservice "github.com/quarkcms/quark-go/v2/pkg/app/admin/service"
+	miniappservice "github.com/quarkcms/quark-go/v2/pkg/app/miniapp/service"
 	toolservice "github.com/quarkcms/quark-go/v2/pkg/app/tool/service"
 	"github.com/quarkcms/quark-go/v2/pkg/builder"
 	"github.com/quarkcms/quark-smart/config"
@@ -61,6 +62,9 @@ func main() {
 
 	// 加载自定义后台服务
 	providers = append(providers, service.Provider...)
+
+	// 加载MiniApp服务
+	providers = append(providers, miniappservice.Providers...)
 
 	// 加载工具服务
 	providers = append(providers, toolservice.Providers...)
