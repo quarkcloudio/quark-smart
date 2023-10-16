@@ -1,6 +1,10 @@
 # Mac OS X files
 .DS_Store
 
+# Editor
+.idea
+.vscode
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
