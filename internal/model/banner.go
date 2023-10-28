@@ -28,13 +28,13 @@ type Banner struct {
 func (m *Banner) Seeder() {
 
 	// 如果菜单已存在，不执行Seeder操作
-	if (&appmodel.Menu{}).IsExist(25) {
+	if (&appmodel.Menu{}).IsExist(108) {
 		return
 	}
 
 	// 创建菜单
 	menuSeeders := []*appmodel.Menu{
-		{Id: 25, Name: "广告列表", GuardName: "admin", Icon: "", Type: 2, Pid: 23, Sort: 0, Path: "/api/admin/banner/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
+		{Id: 108, Name: "广告列表", GuardName: "admin", Icon: "", Type: 2, Pid: 106, Sort: 0, Path: "/api/admin/banner/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
 	}
 	db.Client.Create(&menuSeeders)
 }

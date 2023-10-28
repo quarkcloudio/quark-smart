@@ -45,16 +45,16 @@ type Post struct {
 func (m *Post) Seeder() {
 
 	// 如果菜单已存在，不执行Seeder操作
-	if (&appmodel.Menu{}).IsExist(18) {
+	if (&appmodel.Menu{}).IsExist(101) {
 		return
 	}
 
 	// 创建菜单
 	menuSeeders := []*appmodel.Menu{
-		{Id: 18, Name: "内容管理", GuardName: "admin", Icon: "icon-read", Type: 1, Pid: 0, Sort: 0, Path: "/post", Show: 1, IsEngine: 0, IsLink: 0, Status: 1},
-		{Id: 20, Name: "文章列表", GuardName: "admin", Icon: "", Type: 2, Pid: 18, Sort: 0, Path: "/api/admin/article/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
-		{Id: 21, Name: "单页管理", GuardName: "admin", Icon: "icon-page", Type: 1, Pid: 0, Sort: 0, Path: "/page", Show: 1, IsEngine: 0, IsLink: 0, Status: 1},
-		{Id: 22, Name: "单页列表", GuardName: "admin", Icon: "", Type: 2, Pid: 21, Sort: 0, Path: "/api/admin/page/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
+		{Id: 101, Name: "内容管理", GuardName: "admin", Icon: "icon-read", Type: 1, Pid: 0, Sort: 0, Path: "/post", Show: 1, IsEngine: 0, IsLink: 0, Status: 1},
+		{Id: 103, Name: "文章列表", GuardName: "admin", Icon: "", Type: 2, Pid: 101, Sort: 0, Path: "/api/admin/article/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
+		{Id: 104, Name: "单页管理", GuardName: "admin", Icon: "icon-page", Type: 1, Pid: 0, Sort: 0, Path: "/page", Show: 1, IsEngine: 0, IsLink: 0, Status: 1},
+		{Id: 105, Name: "单页列表", GuardName: "admin", Icon: "", Type: 2, Pid: 104, Sort: 0, Path: "/api/admin/page/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
 	}
 	db.Client.Create(&menuSeeders)
 

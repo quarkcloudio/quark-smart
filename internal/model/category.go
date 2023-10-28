@@ -34,13 +34,13 @@ type Category struct {
 func (m *Category) Seeder() {
 
 	// 如果菜单已存在，不执行Seeder操作
-	if (&appmodel.Menu{}).IsExist(19) {
+	if (&appmodel.Menu{}).IsExist(102) {
 		return
 	}
 
 	// 创建菜单
 	menuSeeders := []*appmodel.Menu{
-		{Id: 19, Name: "分类列表", GuardName: "admin", Icon: "", Type: 2, Pid: 18, Sort: 0, Path: "/api/admin/category/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
+		{Id: 102, Name: "分类列表", GuardName: "admin", Icon: "", Type: 2, Pid: 101, Sort: 0, Path: "/api/admin/category/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
 	}
 	db.Client.Create(&menuSeeders)
 

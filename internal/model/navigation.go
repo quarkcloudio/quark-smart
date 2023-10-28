@@ -28,13 +28,13 @@ type Navigation struct {
 func (m *Navigation) Seeder() {
 
 	// 如果菜单已存在，不执行Seeder操作
-	if (&appmodel.Menu{}).IsExist(26) {
+	if (&appmodel.Menu{}).IsExist(109) {
 		return
 	}
 
 	// 创建菜单
 	menuSeeders := []*appmodel.Menu{
-		{Id: 26, Name: "导航管理", GuardName: "admin", Icon: "", Type: 2, Pid: 7, Sort: 0, Path: "/api/admin/navigation/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
+		{Id: 109, Name: "导航管理", GuardName: "admin", Icon: "", Type: 2, Pid: 7, Sort: 0, Path: "/api/admin/navigation/index", Show: 1, IsEngine: 1, IsLink: 0, Status: 1},
 	}
 	db.Client.Create(&menuSeeders)
 
