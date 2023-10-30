@@ -10,6 +10,8 @@ import (
 	admininstall "github.com/quarkcms/quark-go/v2/pkg/app/admin/install"
 	adminmiddleware "github.com/quarkcms/quark-go/v2/pkg/app/admin/middleware"
 	adminservice "github.com/quarkcms/quark-go/v2/pkg/app/admin/service"
+	miniappinstall "github.com/quarkcms/quark-go/v2/pkg/app/miniapp/install"
+	miniappmiddleware "github.com/quarkcms/quark-go/v2/pkg/app/miniapp/middleware"
 	miniappservice "github.com/quarkcms/quark-go/v2/pkg/app/miniapp/service"
 	toolservice "github.com/quarkcms/quark-go/v2/pkg/app/tool/service"
 	"github.com/quarkcms/quark-go/v2/pkg/builder"
@@ -96,6 +98,12 @@ func main() {
 
 	// 后台中间件
 	b.Use(adminmiddleware.Handle)
+
+	// 构建MiniApp数据库
+	miniappinstall.Handle()
+
+	// MiniApp中间件
+	b.Use(miniappmiddleware.Handle)
 
 	// 中间件
 	b.Use((&middleware.AppMiddleware{}).Handle)
