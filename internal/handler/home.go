@@ -1,6 +1,8 @@
 package handler
 
-import "github.com/quarkcms/quark-go/v2/pkg/builder"
+import (
+	"github.com/quarkcms/quark-go/v2/pkg/builder"
+)
 
 // 结构体
 type Home struct{}

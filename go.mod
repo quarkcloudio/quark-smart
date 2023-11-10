@@ -28,6 +28,8 @@ require (
 	github.com/golang-sql/sqlexp v0.1.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gookit/goutil v0.6.11 // indirect
+	github.com/gorilla/securecookie v1.1.2 // indirect
+	github.com/gorilla/sessions v1.2.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
@@ -88,7 +90,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/quarkcms/quark-go/v2 v2.1.22
+	github.com/quarkcms/quark-go/v2 v2.1.24
 	github.com/richardlehane/mscfb v1.0.4 // indirect
 	github.com/richardlehane/msoleps v1.0.3 // indirect
 	github.com/rogpeppe/go-internal v1.10.0 // indirect

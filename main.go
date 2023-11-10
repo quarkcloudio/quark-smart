@@ -109,7 +109,7 @@ func main() {
 	b.Use((&middleware.AppMiddleware{}).Handle)
 
 	// 开启Debug模式
-	b.Echo().Debug = true
+	b.Echo().Debug = false
 
 	// 加载Html模板
 	b.Echo().Renderer = &Template{
