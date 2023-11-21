@@ -73,6 +73,9 @@ func (p *Article) BaseFields(ctx *builder.Context) []interface{} {
 
 		field.Hidden("cover_ids", "封面图"),
 
+		field.Hidden("type", "类型").
+			SetDefault("ARTICLE"),
+
 		field.Text("title", "标题").
 			SetRules([]*rule.Rule{
 				rule.Required(true, "标题必须填写"),
