@@ -52,6 +52,9 @@ func (p *Page) Fields(ctx *builder.Context) []interface{} {
 
 		field.Hidden("adminid", "AdminID"),
 
+		field.Hidden("type", "类型").
+			SetDefault("PAGE"),
+
 		field.Text("title", "标题").
 			SetRules([]*rule.Rule{
 				rule.Required(true, "标题必须填写"),
