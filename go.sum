@@ -319,8 +319,8 @@ github.com/pkg/sftp v1.13.1/go.mod h1:3HaPG6Dq1ILlpPZRO0HVMrsydcdLt6HRDccSgb87qR
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
-github.com/quarkcms/quark-go/v2 v2.1.24 h1:5+yZRyQgQCVpqMp75zJ/KG7OrltmAnFAFE+DHCoiqoc=
-github.com/quarkcms/quark-go/v2 v2.1.24/go.mod h1:/kwvIro1/ToARTLdFt/2GfeLky3bJZi4cwr0kPhQg7k=
+github.com/quarkcms/quark-go/v2 v2.1.36 h1:nrXrobs6juezADapIZD80w2Et5RFwkUcMEUg1h9DaM8=
+github.com/quarkcms/quark-go/v2 v2.1.36/go.mod h1:BwSlGvvB3IW/ggwrSA9WlpAEf1bniJRJD1ZKvKnxn7A=
 github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec h1:W09IVJc94icq4NjY3clb7Lk8O1qJ8BdBEF8z0ibU0rE=
 github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec/go.mod h1:qqbHyh8v60DhA7CoWK5oRCqLrMHRGoxYCSS9EjAz6Eo=
 github.com/richardlehane/mscfb v1.0.4 h1:WULscsljNPConisD5hR0+OyZjwK46Pfyr6mPu5ZawpM=
