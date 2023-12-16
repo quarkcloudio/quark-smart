@@ -116,15 +116,17 @@ func main() {
 		templates: template.Must(template.ParseGlob(config.App.TemplatePath)),
 	}
 
-	// 日志文件位置
-	f, _ := os.OpenFile(config.App.LoggerFilePath, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0644)
-
-	// 记录日志
-	b.Echo().Logger.SetOutput(io.MultiWriter(f, os.Stdout))
-
 	// 日志中间件
 	if config.App.Logger {
 		b.Echo().Use(echomiddleware.Logger())
+	}
+
+	// 日志文件位置
+	if config.App.LoggerFilePath != "" {
+		f, _ := os.OpenFile(config.App.LoggerFilePath, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0644)
+
+		// 记录日志
+		b.Echo().Logger.SetOutput(io.MultiWriter(f, os.Stdout))
 	}
 
 	// 崩溃后自动恢复
