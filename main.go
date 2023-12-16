@@ -85,10 +85,10 @@ func main() {
 	b := builder.New(getConfig)
 
 	// WEB根目录
-	b.Static("/", "./web/app")
+	b.Static("/", config.App.RootPath)
 
 	// 静态文件目录
-	b.Static("/static/", "./web/static")
+	b.Static("/static/", config.App.StaticPath)
 
 	// 构建quarkgo基础数据库、拉取静态文件
 	admininstall.Handle()
@@ -109,24 +109,28 @@ func main() {
 	b.Use((&middleware.AppMiddleware{}).Handle)
 
 	// 开启Debug模式
-	b.Echo().Debug = false
+	b.Echo().Debug = config.App.Debug
 
 	// 加载Html模板
 	b.Echo().Renderer = &Template{
-		templates: template.Must(template.ParseGlob("web/template/*.html")),
+		templates: template.Must(template.ParseGlob(config.App.TemplatePath)),
 	}
 
 	// 日志文件位置
-	f, _ := os.OpenFile("./app.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0644)
+	f, _ := os.OpenFile(config.App.LoggerFilePath, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0644)
 
 	// 记录日志
 	b.Echo().Logger.SetOutput(io.MultiWriter(f, os.Stdout))
 
 	// 日志中间件
-	b.Echo().Use(echomiddleware.Logger())
+	if config.App.Logger {
+		b.Echo().Use(echomiddleware.Logger())
+	}
 
 	// 崩溃后自动恢复
-	b.Echo().Use(echomiddleware.Recover())
+	if config.App.Recover {
+		b.Echo().Use(echomiddleware.Recover())
+	}
 
 	// 注册后台路由
 	router.AdminRegister(b)
