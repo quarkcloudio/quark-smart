@@ -5,6 +5,7 @@ import (
 	"github.com/quarkcms/quark-smart/internal/admin/service/layout"
 	"github.com/quarkcms/quark-smart/internal/admin/service/login"
 	"github.com/quarkcms/quark-smart/internal/admin/service/resource"
+	"github.com/quarkcms/quark-smart/internal/admin/service/upload"
 )
 
 // 注册服务
@@ -18,4 +19,6 @@ var Provider = []interface{}{
 	&resource.Banner{},
 	&resource.BannerCategory{},
 	&resource.Navigation{},
+	&upload.File{},
+	&upload.Image{},
 }
