@@ -3,11 +3,11 @@ package upload
 import (
 	"reflect"
 
-	"github.com/quarkcms/quark-go/v2/pkg/app/admin/model"
-	"github.com/quarkcms/quark-go/v2/pkg/app/tool/template/upload"
-	"github.com/quarkcms/quark-go/v2/pkg/builder"
-	"github.com/quarkcms/quark-go/v2/pkg/storage"
-	"github.com/quarkcms/quark-smart/config"
+	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/model"
+	"github.com/quarkcloudio/quark-go/v2/pkg/app/tool/template/upload"
+	"github.com/quarkcloudio/quark-go/v2/pkg/builder"
+	"github.com/quarkcloudio/quark-go/v2/pkg/storage"
+	"github.com/quarkcloudio/quark-smart/config"
 )
 
 type File struct {

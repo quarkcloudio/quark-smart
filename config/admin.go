@@ -76,7 +76,7 @@ var Admin = &AdminConfig{
 		{
 			"key":   "Github",
 			"title": "Github",
-			"href":  "https://github.com/quarkcms",
+			"href":  "https://github.com/quarkcloudio",
 		},
 	},
 }

@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/quarkcms/quark-go/v2/pkg/dal/db"
-	"github.com/quarkcms/quark-smart/internal/model"
+	"github.com/quarkcloudio/quark-go/v2/pkg/dal/db"
+	"github.com/quarkcloudio/quark-smart/internal/model"
 )
 
 // 执行数据库操作

@@ -1,8 +1,8 @@
 package router
 
 import (
-	"github.com/quarkcms/quark-go/v2/pkg/builder"
-	"github.com/quarkcms/quark-smart/internal/handler"
+	"github.com/quarkcloudio/quark-go/v2/pkg/builder"
+	"github.com/quarkcloudio/quark-smart/internal/handler"
 )
 
 // 注册Web路由

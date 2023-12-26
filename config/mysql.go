@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/quarkcms/quark-smart/pkg/env"
+	"github.com/quarkcloudio/quark-smart/pkg/env"
 )
 
 type MysqlConfig struct {

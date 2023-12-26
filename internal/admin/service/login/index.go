@@ -5,12 +5,12 @@ import (
 
 	"github.com/dchest/captcha"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/message"
-	"github.com/quarkcms/quark-go/v2/pkg/app/admin/model"
-	"github.com/quarkcms/quark-go/v2/pkg/app/admin/template/login"
-	"github.com/quarkcms/quark-go/v2/pkg/builder"
-	"github.com/quarkcms/quark-go/v2/pkg/utils/hash"
-	"github.com/quarkcms/quark-smart/config"
+	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/component/message"
+	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/model"
+	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/template/login"
+	"github.com/quarkcloudio/quark-go/v2/pkg/builder"
+	"github.com/quarkcloudio/quark-go/v2/pkg/utils/hash"
+	"github.com/quarkcloudio/quark-smart/config"
 	"gorm.io/gorm"
 )
 

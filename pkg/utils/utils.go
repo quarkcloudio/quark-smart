@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/quarkcms/quark-go/v2/pkg/app/admin/model"
+	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/model"
 )
 
 // 获取文件路径
