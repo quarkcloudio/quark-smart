@@ -52,5 +52,8 @@ func (p *Index) Init(ctx *builder.Context) interface{} {
 	// 友情链接
 	p.Links = config.Admin.Links
 
+	// 右上角菜单
+	p.RightMenus = config.Admin.RightMenus
+
 	return p
 }

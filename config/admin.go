@@ -1,6 +1,10 @@
 package config
 
-import "time"
+import (
+	"time"
+
+	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/component/action"
+)
 
 type AdminConfig struct {
 	Title        string                   // 应用标题
@@ -17,6 +21,7 @@ type AdminConfig struct {
 	SiderWidth   int                      // 侧边菜单宽度
 	Copyright    string                   // 网站版权 time.Now().Format("2006") + " QuarkGo"
 	Links        []map[string]interface{} // 友情链接
+	RightMenus   []interface{}            // 右上角菜单
 }
 
 // 后台Layout配置
@@ -78,5 +83,32 @@ var Admin = &AdminConfig{
 			"title": "Github",
 			"href":  "https://github.com/quarkcloudio",
 		},
+	},
+
+	// 右上角菜单
+	RightMenus: []interface{}{
+		action.
+			New().
+			SetLabel("个人设置").
+			SetActionType("link").
+			SetType("link", false).
+			SetIcon("setting").
+			SetStyle(map[string]interface{}{
+				"color": "rgb(0 0 0 / 88%)",
+			}).
+			SetHref("#/layout/index?api=/api/admin/account/setting/form").
+			SetSize("small"),
+
+		action.
+			New().
+			SetLabel("退出登录").
+			SetActionType("ajax").
+			SetType("link", false).
+			SetIcon("logout").
+			SetStyle(map[string]interface{}{
+				"color": "rgb(0 0 0 / 88%)",
+			}).
+			SetApi("/api/admin/logout/index/handle").
+			SetSize("small"),
 	},
 }
