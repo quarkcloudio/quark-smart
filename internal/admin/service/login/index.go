@@ -5,9 +5,12 @@ import (
 
 	"github.com/dchest/captcha"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/component/form/rule"
+	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/component/icon"
 	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/component/message"
 	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/model"
 	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/template/login"
+	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/template/resource"
 	"github.com/quarkcloudio/quark-go/v2/pkg/builder"
 	"github.com/quarkcloudio/quark-go/v2/pkg/utils/hash"
 	"github.com/quarkcloudio/quark-smart/config"
@@ -18,11 +21,15 @@ type Index struct {
 	login.Template
 }
 
+type Captcha struct {
+	Id    string `json:"id" form:"id"`
+	Value string `json:"value" form:"value"`
+}
+
 type LoginRequest struct {
-	Username  string `json:"username" form:"username"`
-	Password  string `json:"password" form:"password"`
-	CaptchaId string `json:"captchaId" form:"captchaId"`
-	Captcha   string `json:"captcha" form:"captcha"`
+	Username string   `json:"username" form:"username"`
+	Password string   `json:"password" form:"password"`
+	Captcha  *Captcha `json:"captcha" form:"captcha"`
 }
 
 // 初始化
@@ -43,21 +50,63 @@ func (p *Index) Init(ctx *builder.Context) interface{} {
 	return p
 }
 
+// 字段
+func (p *Index) Fields(ctx *builder.Context) []interface{} {
+	field := &resource.Field{}
+
+	// 获取验证码ID链接
+	captchaIdUrl := ctx.RouterPathToUrl("/api/admin/login/index/captchaId")
+
+	// 验证码链接
+	captchaUrl := ctx.RouterPathToUrl("/api/admin/login/index/captcha/:id")
+
+	return []interface{}{
+		field.Text("username").
+			SetRules([]*rule.Rule{
+				rule.Required(true, "请输入用户名"),
+			}).
+			SetPlaceholder("用户名").
+			SetWidth("100%").
+			SetSize("large").
+			SetPrefix(icon.New().SetType("icon-user")),
+
+		field.Password("password").
+			SetRules([]*rule.Rule{
+				rule.Required(true, "请输入密码"),
+			}).
+			SetPlaceholder("密码").
+			SetWidth("100%").
+			SetSize("large").
+			SetPrefix(icon.New().SetType("icon-lock")),
+
+		field.ImageCaptcha("captcha").
+			SetCaptchaIdUrl(captchaIdUrl).
+			SetCaptchaUrl(captchaUrl).
+			SetRules([]*rule.Rule{
+				rule.Required(true, "请输入验证码"),
+			}).
+			SetPlaceholder("验证码").
+			SetWidth("100%").
+			SetSize("large").
+			SetPrefix(icon.New().SetType("icon-safetycertificate")),
+	}
+}
+
 // 登录方法
 func (p *Index) Handle(ctx *builder.Context) error {
 	loginRequest := &LoginRequest{}
-	if err := ctx.BodyParser(loginRequest); err != nil {
+	if err := ctx.Bind(loginRequest); err != nil {
 		return ctx.JSON(200, message.Error(err.Error()))
 	}
-	if loginRequest.CaptchaId == "" || loginRequest.Captcha == "" {
+	if loginRequest.Captcha.Id == "" || loginRequest.Captcha.Value == "" {
 		return ctx.JSON(200, message.Error("验证码不能为空"))
 	}
 
-	verifyResult := captcha.VerifyString(loginRequest.CaptchaId, loginRequest.Captcha)
+	verifyResult := captcha.VerifyString(loginRequest.Captcha.Id, loginRequest.Captcha.Value)
 	if !verifyResult {
 		return ctx.JSON(200, message.Error("验证码错误"))
 	}
-	captcha.Reload(loginRequest.CaptchaId)
+	captcha.Reload(loginRequest.Captcha.Id)
 
 	if loginRequest.Username == "" || loginRequest.Password == "" {
 		return ctx.JSON(200, message.Error("用户名或密码不能为空"))
