@@ -29,7 +29,7 @@ type Post struct {
 	ShowType      int            `json:"show_type" gorm:"size:4;default:0"`
 	Position      string         `json:"position" gorm:"size:100;default:null"`
 	Link          string         `json:"link" gorm:"size:100;default:null"`
-	Content       string         `json:"content" gorm:"size:5000;default:null"`
+	Content       string         `json:"content" gorm:"type:text;default:null"`
 	Comment       int            `json:"comment" gorm:"default:0"`
 	View          int            `json:"view" gorm:"default:0"`
 	PageTpl       string         `json:"page_tpl" gorm:"size:100"`
