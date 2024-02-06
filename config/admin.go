@@ -69,14 +69,14 @@ var Admin = &AdminConfig{
 	// 友情链接
 	Links: []map[string]interface{}{
 		{
-			"key":   "Quark",
-			"title": "Quark",
-			"href":  "http://www.quarkcms.com/",
+			"key":   "QuarkCloud",
+			"title": "QuarkCloud",
+			"href":  "http://quarkcloud.io/",
 		},
 		{
-			"key":   "爱小圈",
-			"title": "爱小圈",
-			"href":  "http://www.ixiaoquan.com",
+			"key":   "QuarkGo",
+			"title": "QuarkGo",
+			"href":  "https://github.com/quarkcloudio/quark-go",
 		},
 		{
 			"key":   "Github",
