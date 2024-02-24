@@ -15,7 +15,7 @@ type RedisConfig struct {
 var Redis = &RedisConfig{
 
 	// 地址
-	Host: env.Get("REDIS_HOST", "127.0.0.1").(string),
+	Host: env.Get("REDIS_HOST", "").(string),
 
 	// 密码
 	Password: env.Get("REDIS_PASSWORD").(string),

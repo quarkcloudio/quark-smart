@@ -54,8 +54,21 @@ func main() {
 		dbCharset  = config.Mysql.Charset
 	)
 
+	// Redis配置信息
+	var redisConfig *builder.RedisConfig
+
 	// 数据库配置信息
 	dsn := dbUser + ":" + dbPassword + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName + "?charset=" + dbCharset + "&parseTime=True&loc=Local"
+
+	// Redis配置信息
+	if config.Redis.Host != "" {
+		redisConfig = &builder.RedisConfig{
+			Host:     config.Redis.Host,
+			Password: config.Redis.Password,
+			Port:     config.Redis.Port,
+			Database: config.Redis.Database,
+		}
+	}
 
 	// 加载后台服务
 	providers = append(providers, adminservice.Providers...)
@@ -76,7 +89,8 @@ func main() {
 			Dialector: mysql.Open(dsn),
 			Opts:      &gorm.Config{},
 		},
-		Providers: providers,
+		RedisConfig: redisConfig,
+		Providers:   providers,
 	}
 
 	// 实例化对象
