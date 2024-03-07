@@ -24,6 +24,8 @@ func html(x string) interface{} {
 
 // 模板渲染方法
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+
+	// 注入上下文
 	if viewContext, isMap := data.(map[string]interface{}); isMap {
 		viewContext["reverse"] = c.Echo().Reverse
 	}
