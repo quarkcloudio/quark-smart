@@ -1,11 +1,9 @@
 package main
 
 import (
-	"html/template"
 	"io"
 	"os"
 
-	"github.com/labstack/echo/v4"
 	echomiddleware "github.com/labstack/echo/v4/middleware"
 	admininstall "github.com/quarkcloudio/quark-go/v2/pkg/app/admin/install"
 	adminmiddleware "github.com/quarkcloudio/quark-go/v2/pkg/app/admin/middleware"
@@ -20,23 +18,10 @@ import (
 	"github.com/quarkcloudio/quark-smart/internal/middleware"
 	"github.com/quarkcloudio/quark-smart/internal/router"
 	toolservice "github.com/quarkcloudio/quark-smart/internal/tool/service"
+	"github.com/quarkcloudio/quark-smart/pkg/template"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
-
-// 模板结构体
-type Template struct {
-	templates *template.Template
-}
-
-// 模板渲染方法
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	if viewContext, isMap := data.(map[string]interface{}); isMap {
-		viewContext["reverse"] = c.Echo().Reverse
-	}
-
-	return t.templates.ExecuteTemplate(w, name, data)
-}
 
 func main() {
 
@@ -124,9 +109,7 @@ func main() {
 	b.Echo().Debug = config.App.Debug
 
 	// 加载Html模板
-	b.Echo().Renderer = &Template{
-		templates: template.Must(template.ParseGlob(config.App.TemplatePath)),
-	}
+	b.Echo().Renderer = template.New(config.App.TemplatePath)
 
 	// 日志中间件
 	if config.App.Logger {
