@@ -18,6 +18,7 @@ func New(templatePath string) *Template {
 	}
 }
 
+// 模板方法：输出Html标签
 func html(x string) interface{} {
 	return template.HTML(x)
 }
