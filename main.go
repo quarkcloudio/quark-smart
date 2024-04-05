@@ -14,10 +14,11 @@ import (
 	"github.com/quarkcloudio/quark-go/v2/pkg/builder"
 	"github.com/quarkcloudio/quark-smart/config"
 	"github.com/quarkcloudio/quark-smart/database"
-	"github.com/quarkcloudio/quark-smart/internal/admin/service"
+	sadminservice "github.com/quarkcloudio/quark-smart/internal/admin/service"
 	"github.com/quarkcloudio/quark-smart/internal/middleware"
+	sminiappservice "github.com/quarkcloudio/quark-smart/internal/miniapp/service"
 	"github.com/quarkcloudio/quark-smart/internal/router"
-	toolservice "github.com/quarkcloudio/quark-smart/internal/tool/service"
+	stoolservice "github.com/quarkcloudio/quark-smart/internal/tool/service"
 	"github.com/quarkcloudio/quark-smart/pkg/template"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -55,17 +56,20 @@ func main() {
 		}
 	}
 
-	// 加载后台服务
+	// 加载管理后台服务
 	providers = append(providers, adminservice.Providers...)
-
-	// 加载自定义后台服务
-	providers = append(providers, service.Provider...)
 
 	// 加载MiniApp服务
 	providers = append(providers, miniappservice.Providers...)
 
-	// 加载工具服务
-	providers = append(providers, toolservice.Providers...)
+	// 加载自定义管理后台服务
+	providers = append(providers, sadminservice.Provider...)
+
+	// 加载自定义MiniApp服务
+	providers = append(providers, sminiappservice.Providers...)
+
+	// 加载自定义工具服务
+	providers = append(providers, stoolservice.Providers...)
 
 	// 配置资源
 	getConfig := &builder.Config{
@@ -90,19 +94,19 @@ func main() {
 	// 构建MiniApp数据库
 	miniappinstall.Handle()
 
-	// MiniApp中间件
-	b.Use(miniappmiddleware.Handle)
-
 	// 构建quarkgo基础数据库、拉取静态文件
 	admininstall.Handle()
-
-	// 后台中间件
-	b.Use(adminmiddleware.Handle)
 
 	// 构建本项目数据库
 	database.Handle()
 
-	// 中间件
+	// MiniApp中间件
+	b.Use(miniappmiddleware.Handle)
+
+	// 管理后台中间件
+	b.Use(adminmiddleware.Handle)
+
+	// 本项目中间件
 	b.Use((&middleware.AppMiddleware{}).Handle)
 
 	// 开启Debug模式
