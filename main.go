@@ -16,7 +16,6 @@ import (
 	"github.com/quarkcloudio/quark-smart/database"
 	sadminservice "github.com/quarkcloudio/quark-smart/internal/admin/service"
 	"github.com/quarkcloudio/quark-smart/internal/middleware"
-	sminiappservice "github.com/quarkcloudio/quark-smart/internal/miniapp/service"
 	"github.com/quarkcloudio/quark-smart/internal/router"
 	stoolservice "github.com/quarkcloudio/quark-smart/internal/tool/service"
 	"github.com/quarkcloudio/quark-smart/pkg/template"
@@ -64,9 +63,6 @@ func main() {
 
 	// 加载自定义管理后台服务
 	providers = append(providers, sadminservice.Provider...)
-
-	// 加载自定义MiniApp服务
-	providers = append(providers, sminiappservice.Providers...)
 
 	// 加载自定义工具服务
 	providers = append(providers, stoolservice.Providers...)
