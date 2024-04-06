@@ -87,20 +87,20 @@ func main() {
 	// 静态文件目录
 	b.Static("/static/", config.App.StaticPath)
 
-	// 构建MiniApp数据库
-	miniappinstall.Handle()
-
 	// 构建quarkgo基础数据库、拉取静态文件
 	admininstall.Handle()
+
+	// 构建MiniApp数据库
+	miniappinstall.Handle()
 
 	// 构建本项目数据库
 	database.Handle()
 
-	// MiniApp中间件
-	b.Use(miniappmiddleware.Handle)
-
 	// 管理后台中间件
 	b.Use(adminmiddleware.Handle)
+
+	// MiniApp中间件
+	b.Use(miniappmiddleware.Handle)
 
 	// 本项目中间件
 	b.Use((&middleware.AppMiddleware{}).Handle)
