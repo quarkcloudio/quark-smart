@@ -14,10 +14,10 @@ import (
 	"github.com/quarkcloudio/quark-go/v2/pkg/builder"
 	"github.com/quarkcloudio/quark-smart/config"
 	"github.com/quarkcloudio/quark-smart/database"
-	sadminservice "github.com/quarkcloudio/quark-smart/internal/admin/service"
+	appadminservice "github.com/quarkcloudio/quark-smart/internal/admin/service"
 	"github.com/quarkcloudio/quark-smart/internal/middleware"
 	"github.com/quarkcloudio/quark-smart/internal/router"
-	stoolservice "github.com/quarkcloudio/quark-smart/internal/tool/service"
+	apptoolservice "github.com/quarkcloudio/quark-smart/internal/tool/service"
 	"github.com/quarkcloudio/quark-smart/pkg/template"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -62,10 +62,10 @@ func main() {
 	providers = append(providers, miniappservice.Providers...)
 
 	// 加载自定义管理后台服务
-	providers = append(providers, sadminservice.Provider...)
+	providers = append(providers, appadminservice.Provider...)
 
 	// 加载自定义工具服务
-	providers = append(providers, stoolservice.Providers...)
+	providers = append(providers, apptoolservice.Providers...)
 
 	// 配置资源
 	getConfig := &builder.Config{
