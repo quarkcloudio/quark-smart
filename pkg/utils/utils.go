@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"regexp"
+
 	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/model"
 )
 
@@ -38,4 +40,49 @@ func GetPicturePaths(id interface{}) []string {
 	}
 
 	return (&model.Picture{}).GetPaths(id)
+}
+
+// 获取配置
+func GetConfig(key string) string {
+	return (&model.Config{}).GetValue(key)
+}
+
+// 获取域名
+func GetDomain() string {
+
+	http := ""
+	domain := (&model.Config{}).GetValue("WEB_SITE_DOMAIN")
+	ssl := (&model.Config{}).GetValue("SSL_OPEN")
+	if domain != "" {
+		if ssl == "1" {
+			http = "https://"
+		} else {
+			http = "http://"
+		}
+	}
+
+	return http + domain
+}
+
+// 内容中的地址替换
+func ReplaceContentSrc(content string) string {
+
+	reg := regexp.MustCompile(`<(img|video)\b[^>]*src=["']([^"']+)["'][^>]*>`)
+
+	return reg.ReplaceAllStringFunc(content, func(s string) string {
+		return reg.ReplaceAllString(s, `<$1 src="`+GetDomain()+`$2" >`)
+	})
+}
+
+// 正则验证
+// expr 正则表达式
+// content 要验证的内容
+func CheckRegex(expr, content string) bool {
+
+	r, err := regexp.Compile(expr)
+	if err != nil {
+		return false
+	}
+
+	return r.MatchString(content)
 }
