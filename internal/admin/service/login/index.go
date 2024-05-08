@@ -12,6 +12,7 @@ import (
 	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/template/login"
 	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/template/resource"
 	"github.com/quarkcloudio/quark-go/v2/pkg/builder"
+	"github.com/quarkcloudio/quark-go/v2/pkg/utils/datetime"
 	"github.com/quarkcloudio/quark-go/v2/pkg/utils/hash"
 	"github.com/quarkcloudio/quark-smart/config"
 	"gorm.io/gorm"
@@ -129,7 +130,7 @@ func (p *Index) Handle(ctx *builder.Context) error {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, (&model.Admin{}).GetClaims(adminInfo))
 
 	// 更新登录信息
-	(&model.Admin{}).UpdateLastLogin(adminInfo.Id, ctx.ClientIP(), time.Now())
+	(&model.Admin{}).UpdateLastLogin(adminInfo.Id, ctx.ClientIP(), datetime.Time{Time: time.Now()})
 
 	// 获取token字符串
 	tokenString, err := token.SignedString([]byte(config.AppKey))

@@ -1,11 +1,10 @@
 package model
 
 import (
-	"time"
-
 	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/component/form/fields/selectfield"
 	appmodel "github.com/quarkcloudio/quark-go/v2/pkg/app/admin/model"
 	"github.com/quarkcloudio/quark-go/v2/pkg/dal/db"
+	"github.com/quarkcloudio/quark-go/v2/pkg/utils/datetime"
 	"gorm.io/gorm"
 )
 
@@ -17,8 +16,8 @@ type BannerCategory struct {
 	Width     int            `json:"width" gorm:"size:11;default:0;"`
 	Height    int            `json:"height" gorm:"size:11;default:0;"`
 	Status    int            `json:"status" gorm:"size:1;not null;default:1"`
-	CreatedAt time.Time      `json:"created_at"`
-	UpdatedAt time.Time      `json:"updated_at"`
+	CreatedAt datetime.Time  `json:"created_at"`
+	UpdatedAt datetime.Time  `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `json:"deleted_at"`
 }
 

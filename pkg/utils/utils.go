@@ -2,6 +2,7 @@ package utils
 
 import (
 	"regexp"
+	"strings"
 
 	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/model"
 )
@@ -67,10 +68,10 @@ func GetDomain() string {
 // 内容中的地址替换
 func ReplaceContentSrc(content string) string {
 
-	reg := regexp.MustCompile(`<(img|video)\b[^>]*src=["']([^"']+)["'][^>]*>`)
+	reg := regexp.MustCompile(`src="(/[^"]*)"`)
 
-	return reg.ReplaceAllStringFunc(content, func(s string) string {
-		return reg.ReplaceAllString(s, `<$1 src="`+GetDomain()+`$2" >`)
+	return reg.ReplaceAllStringFunc(content, func(src string) string {
+		return "src \"" + GetDomain() + src[strings.Index(src, "\"")+1:] + "\""
 	})
 }
 

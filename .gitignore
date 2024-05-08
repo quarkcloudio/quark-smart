@@ -1,7 +1,7 @@
 # Mac OS X files
 .DS_Store
 
-# editor
+# Editor
 .vscode
 .idea
 

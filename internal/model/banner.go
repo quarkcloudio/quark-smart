@@ -1,10 +1,9 @@
 package model
 
 import (
-	"time"
-
 	appmodel "github.com/quarkcloudio/quark-go/v2/pkg/app/admin/model"
 	"github.com/quarkcloudio/quark-go/v2/pkg/dal/db"
+	"github.com/quarkcloudio/quark-go/v2/pkg/utils/datetime"
 	"gorm.io/gorm"
 )
 
@@ -18,9 +17,9 @@ type Banner struct {
 	Status     int            `json:"status" gorm:"size:1;not null;default:1"`
 	CoverId    string         `json:"cover_id" gorm:"size:1000;default:null"`
 	Sort       int            `json:"sort" gorm:"size:11;default:0;"`
-	Deadline   time.Time      `json:"deadline"`
-	CreatedAt  time.Time      `json:"created_at"`
-	UpdatedAt  time.Time      `json:"updated_at"`
+	Deadline   datetime.Time  `json:"deadline"`
+	CreatedAt  datetime.Time  `json:"created_at"`
+	UpdatedAt  datetime.Time  `json:"updated_at"`
 	DeletedAt  gorm.DeletedAt `json:"deleted_at"`
 }
 

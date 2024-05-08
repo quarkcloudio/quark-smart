@@ -324,6 +324,8 @@ github.com/quarkcloudio/quark-go/v2 v2.3.5 h1:4FYz4QgLA76PqsyMGIS0iwrgugmF9KfSlL
 github.com/quarkcloudio/quark-go/v2 v2.3.5/go.mod h1:ZOOpPClxq9X6xBxQUsxrn/jcYDCILDUwRulvu+vcag4=
 github.com/quarkcloudio/quark-go/v2 v2.3.10 h1:jucSwkjeMk8kau7TFOMLTO/YqqYeaXYA3xWJMxy1DCw=
 github.com/quarkcloudio/quark-go/v2 v2.3.10/go.mod h1:ZOOpPClxq9X6xBxQUsxrn/jcYDCILDUwRulvu+vcag4=
+github.com/quarkcloudio/quark-go/v2 v2.4.0 h1:WYV9zpS4Bzx/w+1tGjuC+PBG02/ALeyBAEMMEI37CIA=
+github.com/quarkcloudio/quark-go/v2 v2.4.0/go.mod h1:ZOOpPClxq9X6xBxQUsxrn/jcYDCILDUwRulvu+vcag4=
 github.com/redis/go-redis/v9 v9.0.3 h1:+7mmR26M0IvyLxGZUHxu4GiBkJkVDid0Un+j4ScYu4k=
 github.com/redis/go-redis/v9 v9.0.3/go.mod h1:WqMKv5vnQbRuZstUwxQI195wHy+t4PuXDOjzMvcuQHk=
 github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec h1:W09IVJc94icq4NjY3clb7Lk8O1qJ8BdBEF8z0ibU0rE=
