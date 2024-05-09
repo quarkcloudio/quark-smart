@@ -71,7 +71,7 @@ func ReplaceContentSrc(content string) string {
 	reg := regexp.MustCompile(`src="(/[^"]*)"`)
 
 	return reg.ReplaceAllStringFunc(content, func(src string) string {
-		return "src \"" + GetDomain() + src[strings.Index(src, "\"")+1:] + "\""
+		return "src= \"" + GetDomain() + src[strings.Index(src, "\"")+1:] + "\""
 	})
 }
 
