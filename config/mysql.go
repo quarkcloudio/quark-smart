@@ -32,5 +32,5 @@ var Mysql = &MysqlConfig{
 	Password: env.Get("DB_PASSWORD", "root").(string),
 
 	// 编码
-	Charset: "utf8",
+	Charset: "utf8mb4",
 }
