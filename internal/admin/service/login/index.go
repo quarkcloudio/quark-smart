@@ -1,8 +1,6 @@
 package login
 
 import (
-	"time"
-
 	"github.com/dchest/captcha"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/quarkcloudio/quark-go/v2/pkg/app/admin/component/form/rule"
@@ -130,7 +128,7 @@ func (p *Index) Handle(ctx *builder.Context) error {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, (&model.Admin{}).GetClaims(adminInfo))
 
 	// 更新登录信息
-	(&model.Admin{}).UpdateLastLogin(adminInfo.Id, ctx.ClientIP(), datetime.Time{Time: time.Now()})
+	(&model.Admin{}).UpdateLastLogin(adminInfo.Id, ctx.ClientIP(), datetime.TimeNow())
 
 	// 获取token字符串
 	tokenString, err := token.SignedString([]byte(config.AppKey))
