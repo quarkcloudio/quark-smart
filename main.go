@@ -12,6 +12,7 @@ import (
 	miniappmiddleware "github.com/quarkcloudio/quark-go/v2/pkg/app/miniapp/middleware"
 	miniappservice "github.com/quarkcloudio/quark-go/v2/pkg/app/miniapp/service"
 	"github.com/quarkcloudio/quark-go/v2/pkg/builder"
+	"github.com/quarkcloudio/quark-go/v2/pkg/utils/file"
 	"github.com/quarkcloudio/quark-smart/config"
 	"github.com/quarkcloudio/quark-smart/database"
 	appadminservice "github.com/quarkcloudio/quark-smart/internal/admin/service"
@@ -87,14 +88,17 @@ func main() {
 	// 静态文件目录
 	b.Static("/static/", config.App.StaticPath)
 
-	// 构建quarkgo基础数据库、拉取静态文件
-	admininstall.Handle()
+	// 避免每次重启都构建数据库
+	if file.IsExist("install.lock") {
+		// 构建Admin数据库
+		admininstall.Handle()
 
-	// 构建MiniApp数据库
-	miniappinstall.Handle()
+		// 构建本项目数据库
+		database.Handle()
 
-	// 构建本项目数据库
-	database.Handle()
+		// 构建MiniApp数据库
+		miniappinstall.Handle()
+	}
 
 	// 管理后台中间件
 	b.Use(adminmiddleware.Handle)
