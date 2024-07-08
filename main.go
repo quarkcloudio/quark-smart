@@ -89,7 +89,7 @@ func main() {
 	b.Static("/static/", config.App.StaticPath)
 
 	// 避免每次重启都构建数据库
-	if file.IsExist("install.lock") {
+	if !file.IsExist("install.lock") {
 		// 构建Admin数据库
 		admininstall.Handle()
 
