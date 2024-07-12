@@ -10,23 +10,23 @@ import (
 
 // 分类模型
 type Category struct {
-	Id          int            `json:"id" gorm:"autoIncrement"`
-	Pid         int            `json:"pid"`
-	Title       string         `json:"title" gorm:"size:200;not null"`
-	Sort        int            `json:"sort" gorm:"size:11;default:0;"`
-	CoverId     string         `json:"cover_id" gorm:"size:500;default:null"`
-	Name        string         `json:"name" gorm:"size:100;default:null"`
-	Description string         `json:"description" gorm:"size:500;default:null"`
-	Count       int            `json:"count" gorm:"size:11;default:10;"`
-	IndexTpl    string         `json:"index_tpl" gorm:"size:100;"`
-	ListTpl     string         `json:"list_tpl" gorm:"size:100;"`
-	DetailTpl   string         `json:"detail_tpl" gorm:"size:100;"`
-	PageNum     int            `json:"page_num" gorm:"size:11;default:10;"`
-	Type        string         `json:"type" gorm:"size:200;not null;default:ARTICLE"`
-	Status      int            `json:"status" gorm:"size:1;not null;default:1"`
-	CreatedAt   datetime.Time  `json:"created_at"`
-	UpdatedAt   datetime.Time  `json:"updated_at"`
-	DeletedAt   gorm.DeletedAt `json:"deleted_at"`
+	Id          int               `json:"id" gorm:"autoIncrement"`
+	Pid         int               `json:"pid"`
+	Title       string            `json:"title" gorm:"size:200;not null"`
+	Sort        int               `json:"sort" gorm:"size:11;default:0;"`
+	CoverId     string            `json:"cover_id" gorm:"size:500;default:null"`
+	Name        string            `json:"name" gorm:"size:100;default:null"`
+	Description string            `json:"description" gorm:"size:500;default:null"`
+	Count       int               `json:"count" gorm:"size:11;default:10;"`
+	IndexTpl    string            `json:"index_tpl" gorm:"size:100;"`
+	ListTpl     string            `json:"list_tpl" gorm:"size:100;"`
+	DetailTpl   string            `json:"detail_tpl" gorm:"size:100;"`
+	PageNum     int               `json:"page_num" gorm:"size:11;default:10;"`
+	Type        string            `json:"type" gorm:"size:200;not null;default:ARTICLE"`
+	Status      int               `json:"status" gorm:"size:1;not null;default:1"`
+	CreatedAt   datetime.Datetime `json:"created_at"`
+	UpdatedAt   datetime.Datetime `json:"updated_at"`
+	DeletedAt   gorm.DeletedAt    `json:"deleted_at"`
 }
 
 // Seeder

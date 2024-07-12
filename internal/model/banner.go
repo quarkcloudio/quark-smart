@@ -9,18 +9,18 @@ import (
 
 // 分类模型
 type Banner struct {
-	Id         int            `json:"id" gorm:"autoIncrement"`
-	CategoryId int            `json:"category_id" gorm:"size:11;default:0;"`
-	Title      string         `json:"title" gorm:"size:200;not null"`
-	UrlType    int            `json:"url_type" gorm:"size:1;not null;default:1"`
-	Url        string         `json:"url" gorm:"size:200;not null"`
-	Status     int            `json:"status" gorm:"size:1;not null;default:1"`
-	CoverId    string         `json:"cover_id" gorm:"size:1000;default:null"`
-	Sort       int            `json:"sort" gorm:"size:11;default:0;"`
-	Deadline   datetime.Time  `json:"deadline"`
-	CreatedAt  datetime.Time  `json:"created_at"`
-	UpdatedAt  datetime.Time  `json:"updated_at"`
-	DeletedAt  gorm.DeletedAt `json:"deleted_at"`
+	Id         int               `json:"id" gorm:"autoIncrement"`
+	CategoryId int               `json:"category_id" gorm:"size:11;default:0;"`
+	Title      string            `json:"title" gorm:"size:200;not null"`
+	UrlType    int               `json:"url_type" gorm:"size:1;not null;default:1"`
+	Url        string            `json:"url" gorm:"size:200;not null"`
+	Status     int               `json:"status" gorm:"size:1;not null;default:1"`
+	CoverId    string            `json:"cover_id" gorm:"size:1000;default:null"`
+	Sort       int               `json:"sort" gorm:"size:11;default:0;"`
+	Deadline   datetime.Datetime `json:"deadline"`
+	CreatedAt  datetime.Datetime `json:"created_at"`
+	UpdatedAt  datetime.Datetime `json:"updated_at"`
+	DeletedAt  gorm.DeletedAt    `json:"deleted_at"`
 }
 
 // Seeder
