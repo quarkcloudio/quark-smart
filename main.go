@@ -1,9 +1,6 @@
 package main
 
 import (
-	"io"
-	"os"
-
 	echomiddleware "github.com/labstack/echo/v4/middleware"
 	admininstall "github.com/quarkcloudio/quark-go/v2/pkg/app/admin/install"
 	adminmiddleware "github.com/quarkcloudio/quark-go/v2/pkg/app/admin/middleware"
@@ -19,9 +16,12 @@ import (
 	"github.com/quarkcloudio/quark-smart/internal/middleware"
 	"github.com/quarkcloudio/quark-smart/internal/router"
 	apptoolservice "github.com/quarkcloudio/quark-smart/internal/tool/service"
+	_ "github.com/quarkcloudio/quark-smart/pkg/git-commit-msg"
 	"github.com/quarkcloudio/quark-smart/pkg/template"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"io"
+	"os"
 )
 
 func main() {
