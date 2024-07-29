@@ -39,13 +39,23 @@ var (
 
 func init() {
 
-	if file.IsExist(huskyDir+gitCommitMsgFile) {
-		return
+	if !file.IsExist(huskyDir+gitCommitMsgFile) {
+		os.WriteFile(huskyDir+gitCommitMsgFile, []byte(gitCommitMsgContent), 0755)
 	}
 
-	if err := os.WriteFile(huskyDir+gitCommitMsgFile, []byte(gitCommitMsgContent), 0755); err == nil {
+	if !isGitConfigSet() {
 		exec.Command("git", "config", "core.hooksPath", huskyDir).Run()
 	}
 
 	return
+}
+
+func isGitConfigSet() bool {
+
+    cmd := exec.Command("git", "config", "--get", "core.hooksPath")
+    if output, err := cmd.Output(); err == nil {
+        return string(output) == huskyDir
+    }
+
+    return false
 }
