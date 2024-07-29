@@ -2,12 +2,13 @@ package git_commit_msg
 
 import (
 	"os"
+	"os/exec"
 
 	"github.com/quarkcloudio/quark-go/v2/pkg/utils/file"
 )
 
 var (
-	gitCommitMsgPath    = ".git/hooks/"
+	huskyDir            = ".husky/"
 	gitCommitMsgFile    = "commit-msg"
 	gitCommitMsgContent = `#!/bin/sh
 	
@@ -38,15 +39,13 @@ var (
 
 func init() {
 
-	if !file.IsExist(gitCommitMsgPath) {
+	if file.IsExist(huskyDir+gitCommitMsgFile) {
 		return
 	}
 
-	if file.IsExist(gitCommitMsgPath + gitCommitMsgFile) {
-		return
+	if err := os.WriteFile(huskyDir+gitCommitMsgFile, []byte(gitCommitMsgContent), 0755); err == nil {
+		exec.Command("git", "config", "core.hooksPath", huskyDir).Run()
 	}
-
-	os.WriteFile(gitCommitMsgPath+gitCommitMsgFile, []byte(gitCommitMsgContent), 0755)
 
 	return
 }
