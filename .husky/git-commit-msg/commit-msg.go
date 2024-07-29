@@ -3,6 +3,7 @@ package git_commit_msg
 import (
 	"os"
 	"os/exec"
+	"runtime"
 
 	"github.com/quarkcloudio/quark-go/v2/pkg/utils/file"
 )
@@ -39,7 +40,11 @@ var (
 
 func init() {
 
-	if !file.IsExist(huskyDir+gitCommitMsgFile) {
+	if !isGitInstalled() {
+		return
+	}
+
+	if !file.IsExist(huskyDir + gitCommitMsgFile) {
 		os.WriteFile(huskyDir+gitCommitMsgFile, []byte(gitCommitMsgContent), 0755)
 	}
 
@@ -50,12 +55,30 @@ func init() {
 	return
 }
 
+func isGitInstalled() bool {
+
+	var cmd *exec.Cmd
+
+	switch runtime.GOOS {
+	case "windows":
+		cmd = exec.Command("cmd", "/C", "git", "--version")
+	default: // Linux and macOS
+		cmd = exec.Command("sh", "-c", "git --version")
+	}
+
+	if err := cmd.Run(); err != nil {
+		return false
+	}
+
+	return true
+}
+
 func isGitConfigSet() bool {
 
-    cmd := exec.Command("git", "config", "--get", "core.hooksPath")
-    if output, err := cmd.Output(); err == nil {
-        return string(output) == huskyDir
-    }
+	cmd := exec.Command("git", "config", "--get", "core.hooksPath")
+	if output, err := cmd.Output(); err == nil {
+		return string(output) == huskyDir
+	}
 
-    return false
+	return false
 }
