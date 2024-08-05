@@ -8,7 +8,7 @@
 	# 检查提交信息是否符合格式
 	if ! echo "$commit_message" | grep -qE "$pattern"; then
 		echo "无效的commit提交格式"
-		echo "请遵循正确的格式提交. 例如: hotfix：紧急修复XXXX"
+		echo "请遵循正确的格式提交. 例如: hotfix: 紧急修复XXXX"
 		echo "feat: 新功能"
 		echo "fix: 修复 bug"
 		echo "docs: 仅文档更改"
