@@ -16,7 +16,6 @@ import (
 	"github.com/quarkcloudio/quark-smart/internal/middleware"
 	"github.com/quarkcloudio/quark-smart/internal/router"
 	apptoolservice "github.com/quarkcloudio/quark-smart/internal/tool/service"
-	_ "github.com/quarkcloudio/quark-smart/.husky/git-commit-msg"
 	"github.com/quarkcloudio/quark-smart/pkg/template"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
