@@ -19,7 +19,7 @@ func (p *Index) Banner(ctx *quark.Context) error {
 	banners := service.NewBannerService().GetList()
 	for index, banner := range banners {
 		// 处理图片 url
-		banners[index].CoverId = utils.GetImagePath(banner.CoverId)
+		banners[index].CoverId = utils.GetImageUrl(banner.CoverId)
 	}
 	return ctx.JSONOk("ok", banners)
 }
