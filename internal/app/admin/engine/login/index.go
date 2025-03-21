@@ -39,10 +39,10 @@ func (p *Index) Fields(ctx *quark.Context) []interface{} {
 	field := &resource.Field{}
 
 	// 获取验证码ID链接
-	captchaIdUrl := ctx.RouterPathToUrl("/api/admin/login/index/captchaId")
+	captchaIdUrl := ctx.RouterPathToUrl(p.CaptchaIdPath)
 
 	// 验证码链接
-	captchaUrl := ctx.RouterPathToUrl("/api/admin/login/index/captcha/:id")
+	captchaUrl := ctx.RouterPathToUrl(p.CaptchaPath)
 
 	return []interface{}{
 		field.Text("username").
