@@ -3,6 +3,7 @@ package handler
 import (
 	"github.com/dchest/captcha"
 	"github.com/quarkcloudio/quark-go/v3"
+	"github.com/quarkcloudio/quark-smart/v2/internal/dto"
 	"github.com/quarkcloudio/quark-smart/v2/internal/dto/request"
 	"github.com/quarkcloudio/quark-smart/v2/internal/service"
 )
@@ -46,6 +47,27 @@ func (p *Login) Mock(ctx *quark.Context) error {
 		return ctx.JSONError(err.Error())
 	}
 	return ctx.JSONOk("获取成功", map[string]interface{}{
+		"token": token,
+	})
+}
+
+// 微信小程序
+func (p *Login) WechatMP(ctx *quark.Context) error {
+	var param request.WechatMPLoginReq
+	if err := ctx.Bind(&param); err != nil {
+		return ctx.JSONError("参数错误")
+	}
+
+	token, err := service.NewAuthService(ctx).WechatMPLogin(dto.WechatAuthDTO{
+		Code:          param.Code,
+		Iv:            param.Iv,
+		EncryptedData: param.EncryptedData,
+	})
+	if err != nil {
+		return ctx.JSONError(err.Error())
+	}
+
+	return ctx.JSONOk("登录成功", map[string]interface{}{
 		"token": token,
 	})
 }

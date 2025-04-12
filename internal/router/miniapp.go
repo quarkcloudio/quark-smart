@@ -15,6 +15,7 @@ func MiniAppRegister(b *quark.Engine) {
 	g.POST("/register/index", (&handler.Register{}).Index)
 	g.POST("/login/index", (&handler.Login{}).Index)
 	g.GET("/login/mock", (&handler.Login{}).Mock)
+	g.GET("/login/wechatMP", (&handler.Login{}).WechatMP)
 
 	// 轮播组
 	g.GET("/index/banner", (&handler.Index{}).Banner) // 轮播列表
